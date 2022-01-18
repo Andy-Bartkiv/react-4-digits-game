@@ -1,0 +1,98 @@
+.container {
+    user-select: none;
+    -moz-user-select: none;
+    --size-var: 70px;
+    font-size: var(--size-var);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+    border-radius: .25em;
+    border: .1em solid #282c34;
+    box-shadow: 
+        .1em .1em .1em #14161a,
+        -.1em -.1em .1em #3c424e,
+        inset .1em .1em .1em #14161a,
+        inset -.1em -.1em .1em #3c424e;
+}
+.container.horizontal { flex-direction: row-reverse; align-items: stretch; }
+
+.scene {
+    width: 2em;
+    height: 2em;
+    margin: .8em auto;
+    position: relative;
+    perspective: 1000px;
+}
+.scene.horizontal { margin: auto .8em}
+  
+.carousel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform .5s cubic-bezier(0.18, 0.89, 0.25, 1.75)
+}
+  
+.carousel__cell {
+    position: absolute;
+    width: 1.8em;
+    height: 1.8em;
+    left: .1em;
+    top: .1em;
+    border-radius: .125em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    backface-visibility: hidden;
+    transition: transform .5s, visibility .125s;
+    /* background: linear-gradient(145deg, #2b2f38, #24282f); */
+    background-color: #24282f;
+    background-image: linear-gradient(-45deg, #24282f, #24282f 50%, #2b2f38 50%, #2b2f38);
+    background-size: .1em .1em;
+    color: #00808099;
+    box-shadow: .05em .05em .05em #14161a,
+             -.05em -.05em .05em #3c424e;
+    text-shadow: .05em .05em .05em #14161a,
+                -.05em -.05em .05em #3c424e;
+}
+.carousel__cell > * { font-size: 1.25em }
+
+.btn {
+    font-size: .5em; 
+    width: 100%;
+    height: 2em;
+    padding: .25em;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .3em;
+    cursor: pointer;
+    
+    color: #3c424e;
+    background: linear-gradient(145deg, #2b2f38, #24282f);
+    box-shadow: .1em .1em .1em #14161a,
+                -.1em -.1em .1em #3c424e;
+}
+.btn.horizontal { width: 2em; height: auto; }
+
+.btn:hover { color: #006969; }
+@media (hover: none) { .btn:hover { color: #3c424e } }
+
+.btn:active {
+    color: #006969;
+    box-shadow: .025em .025em .025em #14161a,
+                -.025em -.025em .025em #3c424e;
+}
+
+.btn > svg {
+    font-size: 1.25em;
+    filter: 
+        drop-shadow( .075em .075em .075em #14161a)
+        drop-shadow( -.075em -.075em .075em #3c424e);
+}
+.btn:active > svg { transform: scale(0.9); }

@@ -1,0 +1,6 @@
+.clock {
+    /* border: .1em solid orange; */
+    border-radius: .5em;
+    color: orange;
+    padding: .25em .5em;
+}
