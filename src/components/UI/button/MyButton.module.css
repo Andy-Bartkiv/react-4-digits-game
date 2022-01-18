@@ -1,0 +1,21 @@
+.my_btn {
+    --prm-color: teal;
+    --sec-color: orange;
+    --trt-color: #282c44;
+    padding: .25em;
+    color: var(--prm-color);
+    background: transparent;
+    border: .1em solid var(--prm-color);
+    border-radius: .25em;
+    cursor: pointer;
+}
+
+.my_btn:hover {
+    --prm-color: orange;
+}
+
+.my_btn:active {
+    box-shadow: 0 0 1em var(--sec-color);
+    background-color: var(--sec-color);
+    color: var(--trt-color);
+}
