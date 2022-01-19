@@ -53,7 +53,7 @@
     /* background: linear-gradient(145deg, #2b2f38, #24282f); */
     background-color: #24282f;
     background-image: linear-gradient(-45deg, #24282f, #24282f 50%, #2b2f38 50%, #2b2f38);
-    background-size: .1em .1em;
+    background-size: .2rem .2rem;
     color: #00808099;
     box-shadow: .05em .05em .05em #14161a,
              -.05em -.05em .05em #3c424e;
@@ -74,15 +74,15 @@
     border-radius: .3em;
     cursor: pointer;
     
-    color: #3c424e;
+    color: #006969;
     background: linear-gradient(145deg, #2b2f38, #24282f);
     box-shadow: .1em .1em .1em #14161a,
                 -.1em -.1em .1em #3c424e;
 }
 .btn.horizontal { width: 2em; height: auto; }
 
-.btn:hover { color: #006969; }
-@media (hover: none) { .btn:hover { color: #3c424e } }
+.btn:hover { color: teal; }
+@media (hover: none) { .btn:hover { color: #006969 } }
 
 .btn:active {
     color: #006969;

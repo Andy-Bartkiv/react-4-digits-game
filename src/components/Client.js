@@ -1,6 +1,6 @@
 import Loader from './UI/loader/Loader';
 import Header from './Header';
-import Input from './Input';
+import Navbar from './Navbar';
 import Input4D from './Input4D';
 import { useEffect, useState } from "react";
 import OutputList from './OutputList';
@@ -14,10 +14,15 @@ function Client() {
 
   const [isMyTurn, setIsMyTurn] = useState(null);
 
-  setInterval(() => setIsMyTurn(true), 2000);
+  useEffect( () => {
+    setTimeout(() => setIsMyTurn(true), 1500);
+  },[])
+
+  useEffect(() => setIsMyTurn(true), [opGuess]);
 
   useEffect(() => {
     if (myGuess.length) {
+        setIsMyTurn(false);
       setTimeout(() => {
         const newRes = compareDigits(myGuess[myGuess.length-1], NUMBER)
         setMyRes([...myRes, newRes]);
@@ -26,10 +31,10 @@ function Client() {
         setOpGuess([...opGuess, myGuess[myGuess.length-1]])
         const newRes = compareDigits(myGuess[myGuess.length-1], NUMBER)
         setOpRes([...opRes, newRes]);
-      }, 5000);
+      }, 2500);
     }
   console.log(myGuess, myRes, isMyTurn);
-  }, [myGuess, isMyTurn]);
+  }, [myGuess]);
 
   const NUMBER = '2468';
   // console.log(myGuess);
@@ -46,26 +51,18 @@ function Client() {
 ////////////////////////////// RENDER /////////////////////////////
   return (
     <div className="Client">
+
         <Header/>
 
-        <div className='Client-navbar'>
-            <li>Menu</li>
-            <li>Game</li>
-            <li>Hint</li>
-        </div>
+        <Navbar/>
 
         <div className='Client-output'>
-
-        <OutputList guess={ myGuess } res={ myRes } num={ '????' }/> 
-
-        <OutputList guess={ opGuess } res={ opRes } num={ NUMBER }/> 
-      </div>
-
-        {/* <Input input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn }/> */}
+            <OutputList guess={ myGuess } res={ myRes } num={ '????' }/> 
+            <OutputList guess={ opGuess } res={ opRes } num={ NUMBER } opponent={ true }/> 
+        </div>
 
         <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn }/>
         
-
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import NumPlates from "./NumPlates";
 
-const OutputList = ({ guess, res, num }) => {
+const OutputList = ({ guess, res, num, opponent=false }) => {
+    const listStyle = 'output-list' + ((opponent) ? ' opponent' : '');
     return (
-      <div className='output-list'>
+      <div className={ listStyle }>
 
         <div className="list-header">
-          <NumPlates str={ num.split('').join('') } color='orange'/>
+          <NumPlates str={ num.split('').join('') }/>
         </div>
 
         <div className="list-guess">
