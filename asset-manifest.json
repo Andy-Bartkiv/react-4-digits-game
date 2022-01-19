@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/react-4-digits-game/static/css/main.34cae238.css",
-    "main.js": "/react-4-digits-game/static/js/main.6bc95218.js",
+    "main.css": "/react-4-digits-game/static/css/main.9794fd67.css",
+    "main.js": "/react-4-digits-game/static/js/main.3cecfe55.js",
     "index.html": "/react-4-digits-game/index.html",
-    "main.34cae238.css.map": "/react-4-digits-game/static/css/main.34cae238.css.map",
-    "main.6bc95218.js.map": "/react-4-digits-game/static/js/main.6bc95218.js.map"
+    "main.9794fd67.css.map": "/react-4-digits-game/static/css/main.9794fd67.css.map",
+    "main.3cecfe55.js.map": "/react-4-digits-game/static/js/main.3cecfe55.js.map"
   },
   "entrypoints": [
-    "static/css/main.34cae238.css",
-    "static/js/main.6bc95218.js"
+    "static/css/main.9794fd67.css",
+    "static/js/main.3cecfe55.js"
   ]
 }
