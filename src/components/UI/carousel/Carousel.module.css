@@ -8,6 +8,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
     
     border-radius: .25em;
     border: .1em solid #282c34;

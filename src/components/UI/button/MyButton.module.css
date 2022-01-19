@@ -6,12 +6,12 @@
     color: var(--prm-color);
     background: transparent;
     border: .1em solid var(--prm-color);
-    border-radius: .25em;
+    border-radius: .5em;
     cursor: pointer;
 }
 
 .my_btn:hover {
-    --prm-color: orange;
+    --prm-color: var(--sec-color);
 }
 
 .my_btn:active {
