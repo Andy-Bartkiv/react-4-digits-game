@@ -14,8 +14,11 @@ const Input4D = ({ input, setInput, isMyTurn }) => {
           min: Math.min(divRef.current.offsetWidth, divRef.current.offsetHeight),
         });
     }, []);
-  
-    const [cars, setCars] = useState({ 0:1, 1:9, 2:9, 3:9 })
+    
+    const initInput = (input.length) 
+      ? { 0:1*input[0], 1:1*input[1], 2:1*input[2], 3:1*input[3] } 
+      : { 0:1, 1:9, 2:9, 3:9 };
+    const [cars, setCars] = useState(initInput)
   
     const dim = (divRef.current) && Math.round(dimensions.width/30);
     const dim2 = (divRef.current) && Math.round((dimensions.min + dimensions.width + dimensions.height)/50);

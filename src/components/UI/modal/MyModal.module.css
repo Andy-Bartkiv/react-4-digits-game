@@ -1,16 +1,16 @@
 .my_modal {
+    z-index: 10;
     position: fixed;
     top: 0; right: 0; bottom: 0; left: 0;
     display: none;
-    background: #0005;
+    background: #000a;
 }
 
 .modal_content {
-    padding: .75em;
-    border: .1em solid orange;
+    padding: 1em 0;
     border-radius: .5em;
-    background: #282c44;
-    min-width: 50%;
+    background: #282c34;
+    width: min(62vh, 100vw);
 }
 
 .my_modal.active {

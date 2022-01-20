@@ -3,9 +3,13 @@ import { useEffect, useState } from "react";
 import { uniqRndStr } from "./utils/rndMethods";
 import calcDigitMatch from './utils/calcDigitMatch';
 import Client from './components/Client';
+import MyModal from './components/UI/modal/MyModal';
 import ContainerAI from './components/ContainerAI';
+import Input4D from './components/Input4D';
 
 function App() {
+
+  const [modal, setModal] = useState(true);
 
   const [myGuess, setMyGuess] = useState([]);
   const [myRes, setMyRes] = useState([]);
@@ -16,13 +20,20 @@ function App() {
   const [myWin, setMyWin] = useState(null);
 
   // Initial starting side Selection
+  // useEffect( () => {
+  //   if (isMyTurn === null && myWin === null) 
+  //     setTimeout( () => {
+  //       setIsMyTurn(false)
+  //       setMyNumber(uniqRndStr('0123456789'));
+  //     }, 500);
+  // }, [isMyTurn]);
+
   useEffect( () => {
-    if (isMyTurn === null && myWin === null) 
-      setTimeout( () => {
-        setIsMyTurn(false)
-        setMyNumber(uniqRndStr('0123456789'));
-      }, 500);
-  }, [isMyTurn]);
+    if (myNumber) {
+      setIsMyTurn(false)
+      setModal(false);
+    }
+  }, [myNumber]);
   
   useEffect(() => {
     if (myGuess.length) setIsMyTurn(false)
@@ -61,12 +72,25 @@ function App() {
       setOpGuess([]); setOpRes([]);
       setIsMyTurn(null);
       setMyWin(null);
+      setMyNumber(null);
+      setModal(true);
     }
   }
 
 ////////////////////////////// RENDER /////////////////////////////
   return (
     <>
+    <MyModal
+      visible = { modal }
+      setVisible = { setModal }
+    >
+      {/* <div>Set My Number</div> */}
+      <Input4D 
+        input={ uniqRndStr('0123456789') } 
+        setInput={ (val) => setMyNumber(val.slice(-1)[0]) } 
+        isMyTurn={ modal }/>
+    </MyModal>
+
     <Client
       myNumber= { myNumber }
       myGuess={ myGuess }
