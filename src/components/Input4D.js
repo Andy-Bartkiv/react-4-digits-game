@@ -20,15 +20,14 @@ const Input4D = ({ input, setInput, isMyTurn }) => {
     const dim = (divRef.current) && Math.round(dimensions.width/30);
     const dim2 = (divRef.current) && Math.round((dimensions.min + dimensions.width + dimensions.height)/50);
   
-    console.log(dimensions, dim, dim2);
-  
+    // console.log(dimensions, dim, dim2, isMyTurn);
 
     const handleSubmit = () => {
-        if (!isMyTurn) return;
+      if (isMyTurn)
         setInput([...input, Object.values(cars).join('')]);
     }
 
-    const btnStyle = 'input-button' + ((!isMyTurn) ? ' disabled' : '');
+    const btnStyle = 'input-button' + ((isMyTurn) ? '' : ' disabled');
 
     return (
       <div className="Client-input-4D" ref={ divRef }>

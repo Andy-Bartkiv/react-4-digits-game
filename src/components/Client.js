@@ -2,10 +2,12 @@ import Loader from './UI/loader/Loader';
 import Header from './Header';
 import Navbar from './Navbar';
 import Input4D from './Input4D';
-// import { useEffect, useState } from "react";
 import OutputList from './OutputList';
 
-function Client({ isMyTurn, myGuess, setMyGuess, myRes, opGuess, opRes, myNumber }) {
+function Client({ myNumber, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame }) {
+
+  const lastIndex = myRes.length-1;
+  const opNumber = (myRes[lastIndex] !== '44') ? '????': myGuess[lastIndex];
 
 ////////////////////////////// RENDER /////////////////////////////
   return (
@@ -13,11 +15,11 @@ function Client({ isMyTurn, myGuess, setMyGuess, myRes, opGuess, opRes, myNumber
 
         <Header/>
 
-        <Navbar/>
+        <Navbar isMyTurn={ isMyTurn } restartGame={ restartGame }/>
 
         <div className='Client-output'>
-            <OutputList guess={ myGuess } res={ myRes } num={ '????' }/> 
-            <OutputList guess={ opGuess } res={ opRes } num={ myNumber } opponent={ true }/> 
+            <OutputList guess={ myGuess } res={ myRes } num={ myNumber }/> 
+            <OutputList guess={ opGuess } res={ opRes } num={ opNumber } opponent={ true }/> 
         </div>
 
         <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn }/>

@@ -51,7 +51,7 @@ const Carousel = ({ dig, setDig, isHorizontal, cellCount, size }) => {
                 onTouchEnd={ (e) => e.preventDefault() }
                 onClick={ () => handleClick(fwd) }
              >
-                { (fwd)
+                { (!fwd)
                     ? (!isHorizontal) ? <BsCaretDownFill/> : <BsCaretLeftFill/> 
                     : (!isHorizontal) ? <BsCaretUpFill/> : <BsCaretRightFill/>
                 }
@@ -66,7 +66,7 @@ const Carousel = ({ dig, setDig, isHorizontal, cellCount, size }) => {
     return (
         <div className={ styles.container } style={ sizeStyle }>
 
-            { renderButton(false) }
+            { renderButton(true) }
 
             <div className={ styles.scene }>        
                 <div className={ cls.carousel }
@@ -87,7 +87,7 @@ const Carousel = ({ dig, setDig, isHorizontal, cellCount, size }) => {
                 </div>
             </div>
 
-            { renderButton(true) }
+            { renderButton(false) }
 
         </div>
     )
