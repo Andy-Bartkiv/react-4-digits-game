@@ -3,12 +3,13 @@ import NumPlates from "./NumPlates";
 const OutputList = ({ guess, res, num, opponent=false }) => {
   
   const listStyle = 'output-list' + ((opponent) ? ' opponent' : '');
+  const number = (num) ? num : '????'
   
   return (
     <div className={ listStyle }>
 
       <div className="list-header">
-        <NumPlates str={ num.split('').join('') }/>
+        <NumPlates str={ number.split('').join('') }/>
       </div>
 
       <div className="list-guess">
