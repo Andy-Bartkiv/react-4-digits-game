@@ -15,7 +15,7 @@ function Client({ myNumber, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
 
         <Header/>
 
-        <Navbar isMyTurn={ isMyTurn } restartGame={ restartGame }/>
+        <Navbar restartGame={ restartGame }/>
 
         <div className='Client-output'>
             <OutputList guess={ myGuess } res={ myRes } num={ myNumber }/> 

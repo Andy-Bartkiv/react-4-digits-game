@@ -19,15 +19,6 @@ function App() {
   const [myNumber, setMyNumber] = useState(null);
   const [myWin, setMyWin] = useState(null);
 
-  // Initial starting side Selection
-  // useEffect( () => {
-  //   if (isMyTurn === null && myWin === null) 
-  //     setTimeout( () => {
-  //       setIsMyTurn(false)
-  //       setMyNumber(uniqRndStr('0123456789'));
-  //     }, 500);
-  // }, [isMyTurn]);
-
   useEffect( () => {
     if (myNumber) {
       setIsMyTurn(false)
@@ -67,7 +58,8 @@ function App() {
   }, [opGuess]);
 
   function restartGame() {
-    if (isMyTurn) {
+    // if (isMyTurn) {
+    if (true) {
       setMyGuess([]); setMyRes([]);
       setOpGuess([]); setOpRes([]);
       setIsMyTurn(null);

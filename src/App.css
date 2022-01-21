@@ -159,7 +159,6 @@ body {
   justify-content: center;
   align-items: center;
   gap: .95em;
-  background-color: var(--bg1-color);
   width: 100%;
   padding: .25em;
 }
