@@ -3,6 +3,7 @@ import Header from './Header';
 import Navbar from './Navbar';
 import Input4D from './Input4D';
 import OutputList from './OutputList';
+import CheatSheet from './CheatSheet';
 
 function Client({ myNumber, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame }) {
 
@@ -12,6 +13,9 @@ function Client({ myNumber, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
 ////////////////////////////// RENDER /////////////////////////////
   return (
     <div className="Client">
+
+        <CheatSheet guess={ myGuess } res={ myRes } />
+        {/* <CheatSheet guess={ myGuess } res={ myRes } /> */}
 
         <Header/>
 

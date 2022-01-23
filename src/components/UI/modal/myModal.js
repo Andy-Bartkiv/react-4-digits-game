@@ -5,15 +5,23 @@ const MyModal = ({ children, visible, setVisible }) => {
 		? [cls.my_modal]
 		: [cls.my_modal, cls.active]
     return (
+        <>
+        <div className={ cls.modal_blinder }></div>
+
         <div className = {rootClasses.join(' ')}
 			// onClick = { () => setVisible(false) }
-        >
-            <div className={ cls.modal_content }
-                onClick = { (e) => e.stopPropagation() }
-            >
-                { children }
+        >   
+            <div className={ cls.modal_wrap }>
+                <div className={ cls.modal_content }
+                    onClick = { (e) => e.stopPropagation() }
+                >
+                    { children }
+                </div>
             </div>
-    </div>
+        </div>
+
+        <div className={ cls.modal_blinder }></div>
+        </>
 	)
 }
 

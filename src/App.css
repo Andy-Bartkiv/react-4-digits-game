@@ -161,6 +161,7 @@ body {
   gap: .95em;
   width: 100%;
   padding: .25em;
+  margin-bottom: .5em;
 }
 
 .input-car-block {
@@ -172,7 +173,7 @@ body {
 
 .input-button {
   cursor: pointer;
-  width: 100%;
+  width: calc(100% - 1.6rem);
   padding: .125em; 
   border-radius: .25em;
   color: #0889;
@@ -203,9 +204,41 @@ body {
 .input-button.disabled > svg { opacity: .25; }
 
 @media (min-aspect-ratio: 50/90) {
-  .Client-input-4D { flex-direction: row-reverse; gap: 1.25em; }
+  .Client-input-4D { flex-direction: row-reverse; gap: 1.25em; margin-bottom: 0; }
   .input-car-block { justify-content: space-between; }
   .input-button { width: 2.5em; height: 100%; }
   .input-button > svg { transform: rotate(180deg); }
   .input-button:active > svg { transform: rotate(180deg) scale(.9); }
 }
+
+/*////////////////////////////// CHEat - SHEET  */
+
+.ch-sh-wrap {
+  z-index: 20;
+  position: fixed;
+  top: 0;  left: 0;
+  height: 100vh;
+  width: calc(50vw - min(31vh, 50vw));
+  border-radius: .25em;
+  padding: .5em;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .1em;
+  /* background: teal; */
+  color: wheat;
+  /* overflow: hidden; */
+
+      display: none;
+
+}
+
+.ch-sh-wrap.right {
+  left: auto; right: 0;
+}
+
+/* .ch-sh-weights {
+  color: teal;
+} */

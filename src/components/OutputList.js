@@ -9,7 +9,7 @@ const OutputList = ({ guess, res, num, opponent=false }) => {
     <div className={ listStyle }>
 
       <div className="list-header">
-        <NumPlates str={ number.split('').join('') }/>
+        <NumPlates str={ number }/>
       </div>
 
       <div className="list-guess">
@@ -17,7 +17,7 @@ const OutputList = ({ guess, res, num, opponent=false }) => {
       </div>
 
       <div className="list-res">
-        { res.map((r, i) => <NumPlates key={i} str={ "-"+r }/>) }
+        { res.map((r, i) => <NumPlates key={i} str={ "-" + r }/>) }
       </div>
     </div>
   )

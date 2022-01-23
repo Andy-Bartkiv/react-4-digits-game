@@ -4,32 +4,48 @@ import calcDigitMatch from "../utils/calcDigitMatch";
 
 const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, opRes }) => {
     
-    const [opNumber, setOpNumber] = useState(null);
+    const [opSecret, setOpSecret] = useState(null);
+
+    function calcNewGuess(guess, res) {
+        let newGuess = null;
+        if (guess.length === 0)
+            newGuess = '1234';
+        else if (guess.length === 1)
+            newGuess = '5678';
+        else {
+            const N = '0123456789';
+            newGuess = rndStr(N);
+        }
+        return newGuess;
+    }
     
     useEffect( () => {
-        setOpNumber(uniqRndStr('0123456789'));
+        setOpSecret(uniqRndStr('0123456789'));
     }, []);
+
+    useEffect( () => console.log('ContainerAI number =', opSecret), [opSecret])
 
     useEffect(() => {
         if (myGuess.length && isMyTurn !== null) {
-            setTimeout(() => {
-                const newRes = calcDigitMatch(myGuess[myGuess.length-1], opNumber)
+            const t = setTimeout(() => {
+                const newRes = calcDigitMatch(myGuess[myGuess.length-1], opSecret)
                 setMyRes([...myRes, newRes]);
-            }, 1000);
+            }, 75); // 750
         
-                        console.log('ContainerAI number =', opNumber);
+                        // console.log('ContainerAI number =', opSecret);
         }
+        return (t) => clearTimeout(t);
     }, [myGuess]);
 
     useEffect(() => {
-        // console.log(myRes, isMyTurn);
-                                        // Condition SHOULD BE CHANGED
-        if (isMyTurn !== null && myRes.slice(-1)[0] !== '44') {
-            console.log('Calculating OP Guess')
-            setTimeout(() => {
-                setOpGuess([...opGuess, rndStr('0123456789')]);
-            }, 2500);
+                            // Condition SHOULD BE CHANGED
+        if (isMyTurn === false && myRes.slice(-1)[0] !== '44') {
+            // console.log('Calculating OP Guess')
+            const t = setTimeout(() => {
+                setOpGuess([...opGuess, calcNewGuess(opGuess, opRes)]);
+            }, 250); // 2500
         }
+        return (t) => clearTimeout(t);
     }, [myRes]);
     
     return null;

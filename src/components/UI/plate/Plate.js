@@ -2,10 +2,12 @@ import cls from './Plate.module.css';
 
 import React from 'react'
 
-const Plate = ({ char }) => {
+const Plate = ({ char, charSize = '1em' }) => {
     return (
         <span className={ cls.plate }>
-            { char }
+            <span style={{ fontSize: charSize}}>
+                { char }
+            </span>
         </span>
     )
 }

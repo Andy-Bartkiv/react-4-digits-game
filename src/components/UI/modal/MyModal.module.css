@@ -1,24 +1,46 @@
+.modal_blinder {
+    z-index: 10;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    width: calc(50vw - min(31vh, 50vw));
+    background-color: #282c34;
+}
+
 .my_modal {
     z-index: 10;
     position: fixed;
-    top: 0; right: 0; bottom: 0; left: 0;
-    display: none;
-    background: #0001;
+    top: 0; 
+    left: calc(50vw - min(31vh, 50vw));
+    height: 100vh;
+    width: min(62vh, 100vw);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(calc(-1.02*min(62vh, 100vw)));
+    transition: .75s ease-in-out;
+}
+
+.modal_wrap {
+    height: calc(100% - .25em);
+    width: calc(min(62vh, 100vw) - .25em);
+    border-radius: .5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #282c34;
+    background: linear-gradient(145deg, #2b2f38, #24282f);
+    box-shadow: .25em .25em .25em #14161a,
+                -.25em -.25em .25em #3c424e;
 }
 
 .modal_content {
-    padding: 10em 0;
-    border-radius: .5em;
     width: min(62vh, 100vw);
     display: flex;
-    background: #282c34;
-    background: linear-gradient(145deg, #2b2f38, #24282f);
-    box-shadow: .1em .1em .1em #14161a,
-                -.1em -.1em .1em #3c424e;
 }
-
+@media (min-aspect-ratio: 50/90) {
+    .modal_content { padding: 0 1rem; }
+}
 .my_modal.active {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    transform: translateX(0);
 }

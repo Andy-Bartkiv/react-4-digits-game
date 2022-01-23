@@ -53,12 +53,12 @@ function App() {
       setTimeout(() => {
         const newRes = calcDigitMatch(opGuess[opGuess.length-1], myNumber)
         setOpRes([...opRes, newRes]);
-      }, 750);
+      }, 75); // 750
      }
   }, [opGuess]);
 
   function restartGame() {
-    // if (isMyTurn) {
+    // if (isMyTurn) {  // BUG - you can not restart game after winning
     if (true) {
       setMyGuess([]); setMyRes([]);
       setOpGuess([]); setOpRes([]);
@@ -76,7 +76,8 @@ function App() {
       visible = { modal }
       setVisible = { setModal }
     >
-      {/* <div>Set My Number</div> */}
+      {/* <div>Set-Up Your Secret Number</div> */}
+      
       <Input4D 
         input={ uniqRndStr('0123456789') } 
         setInput={ (val) => setMyNumber(val.slice(-1)[0]) } 
