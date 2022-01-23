@@ -204,7 +204,7 @@ body {
 .input-button.disabled > svg { opacity: .25; }
 
 @media (min-aspect-ratio: 50/90) {
-  .Client-input-4D { flex-direction: row-reverse; gap: 1.25em; margin-bottom: 0; }
+  .Client-input-4D { flex-direction: row-reverse; gap: 1.25em; margin-bottom: .25em; }
   .input-car-block { justify-content: space-between; }
   .input-button { width: 2.5em; height: 100%; }
   .input-button > svg { transform: rotate(180deg); }
@@ -231,7 +231,7 @@ body {
   color: wheat;
   /* overflow: hidden; */
 
-      display: none;
+      /* display: none; */
 
 }
 

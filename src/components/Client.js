@@ -14,12 +14,11 @@ function Client({ myNumber, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
   return (
     <div className="Client">
 
-        <CheatSheet guess={ myGuess } res={ myRes } />
-        {/* <CheatSheet guess={ myGuess } res={ myRes } /> */}
-
         <Header/>
 
         <Navbar restartGame={ restartGame }/>
+
+        <CheatSheet guess={ myGuess } res={ myRes } />
 
         <div className='Client-output'>
             <OutputList guess={ myGuess } res={ myRes } num={ myNumber }/> 
