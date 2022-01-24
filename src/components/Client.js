@@ -5,7 +5,7 @@ import Input4D from './Input4D';
 import OutputList from './OutputList';
 import CheatSheet from './CheatSheet';
 
-function Client({ myNumber, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame }) {
+function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame }) {
 
   const lastIndex = myRes.length-1;
   const opNumber = (myRes[lastIndex] !== '44') ? '????': myGuess[lastIndex];
@@ -21,7 +21,7 @@ function Client({ myNumber, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
         <CheatSheet guess={ myGuess } res={ myRes } />
 
         <div className='Client-output'>
-            <OutputList guess={ myGuess } res={ myRes } num={ myNumber }/> 
+            <OutputList guess={ myGuess } res={ myRes } num={ mySecret }/> 
             <OutputList guess={ opGuess } res={ opRes } num={ opNumber } opponent={ true }/> 
         </div>
 

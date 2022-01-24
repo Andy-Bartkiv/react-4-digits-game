@@ -17,7 +17,7 @@ const Input4D = ({ input, setInput, isMyTurn }) => {
     
     const initInput = (input.length) 
       ? { 0:1*input[0], 1:1*input[1], 2:1*input[2], 3:1*input[3] } 
-      : { 0:1, 1:9, 2:9, 3:9 };
+      : { 0:0, 1:0, 2:1, 3:1 };
     const [cars, setCars] = useState(initInput)
   
     const dim = (divRef.current) && Math.round(dimensions.width/30);

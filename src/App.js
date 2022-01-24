@@ -16,15 +16,15 @@ function App() {
   const [opGuess, setOpGuess] = useState([]);
   const [opRes, setOpRes] = useState([]);
   const [isMyTurn, setIsMyTurn] = useState(null);
-  const [myNumber, setMyNumber] = useState(null);
+  const [mySecret, setMySecret] = useState(null);
   const [myWin, setMyWin] = useState(null);
 
   useEffect( () => {
-    if (myNumber) {
+    if (mySecret) {
       setIsMyTurn(false)
       setModal(false);
     }
-  }, [myNumber]);
+  }, [mySecret]);
   
   useEffect(() => {
     if (myGuess.length) setIsMyTurn(false)
@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
     if (opGuess.length) {
       setTimeout(() => {
-        const newRes = calcDigitMatch(opGuess[opGuess.length-1], myNumber)
+        const newRes = calcDigitMatch(opGuess[opGuess.length-1], mySecret)
         setOpRes([...opRes, newRes]);
       }, 75); // 750
      }
@@ -64,7 +64,7 @@ function App() {
       setOpGuess([]); setOpRes([]);
       setIsMyTurn(null);
       setMyWin(null);
-      setMyNumber(null);
+      setMySecret(null);
       setModal(true);
     }
   }
@@ -80,12 +80,12 @@ function App() {
       
       <Input4D 
         input={ uniqRndStr('0123456789') } 
-        setInput={ (val) => setMyNumber(val.slice(-1)[0]) } 
+        setInput={ (val) => setMySecret(val.slice(-1)[0]) } 
         isMyTurn={ modal }/>
     </MyModal>
 
     <Client
-      myNumber= { myNumber }
+      mySecret= { mySecret }
       myGuess={ myGuess }
       setMyGuess={ setMyGuess }
       myRes={ myRes }
