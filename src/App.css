@@ -211,8 +211,7 @@ body {
   .input-button:active > svg { transform: rotate(180deg) scale(.9); }
 }
 
-/*////////////////////////////// CHEat - SHEET  */
-
+/*////////////////////////////// CHeat-SHeet  */
 .ch-sh-wrap {
   z-index: 20;
   position: fixed;
@@ -229,10 +228,9 @@ body {
   gap: .1em;
   /* background: teal; */
   color: wheat;
-  /* overflow: hidden; */
+      /* overflow: hidden; */
 
       /* display: none; */
-
 }
 
 .ch-sh-wrap.right {

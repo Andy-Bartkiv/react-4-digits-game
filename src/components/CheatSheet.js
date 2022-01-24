@@ -37,7 +37,6 @@ const CheatSheet = ({ guess, res }) => {
             const newPos = [...position].map(row => [...row]);
 
             // console.log(lastRes, lastGuess, uniqDigits, restDigits)
-            // console.log(lastRes[0], lastRes[1]);
 
                         // const u2 = [...new Set([...guess[0].split(''), ...lastGuess.split('')])];
                         // const r2 = '0123456789'.split('').filter(d => !u2.includes(d));
@@ -109,28 +108,45 @@ const CheatSheet = ({ guess, res }) => {
                     .findIndex(pos => pos.length === 1)
             // console.log(lastDigAtPos());
 
-            // updatePosByRow(lastDigAtPos());
+            for (let c in '12')
+                updateRowNCol(lastDigAtPos());
 
-            function updatePosByRow(lastDig) {
+            function updateRowNCol(lastDig) {
                 if (lastDig >= 0) {
                     const row = lastDigAtPos();
                     const d = newPos[row].indexOf(' ');
-                    TEN_DIG.forEach(td => newPos[row][td] = (td === d) ? 'O' : '-')
-                    // newPos[row][d] = 'O';
-                }
+                    TEN_DIG.forEach(td => newPos[row][td] = (td === d) ? 'O' : '-');
+                    [0,1,2,3].forEach(r => {
+                        newPos[r][d] = (r === row) ? 'O' : '-'
+                        newPos[r][10] = (r === row) ? d : newPos[r][10]
+                    }) 
+                } else return;
             }
-///////////////////////////////////// TO DO ////////////////////////////////////
     // recalculate newPos if any digPresent has only 1 legal position
             // const lastPosForDig = () =>
-            //     nDP.map(d => gridDig
-                    
-                    
-            //         [0,1,2,3]
-            //             .filter(pos => (newPos[pos][d] === ' ')))
-            //         // .find(d => d.length === 1)
-            // console.log('LPFD', lastPosForDig());
+            //     gridDig
+            //         .map((d,i) => 
+            //             (nDP.includes(i) && d.length===1 && d !== '-') 
+            //                 ? i : -1)
+            //         .filter(d => d > 0)
+            //         [0];
+    
+            // console.log('LPFD', lastPosForDig(), gridDig[lastPosForDig()]);
+            // for (let c in '12')
+            //     updateColumn(lastPosForDig());
+
+            // function updateColumn(lastPos) {
+            //     if (lastPos >= 0) {
+            //         const col = lastPosForDig();
+            //         const pos = gridDig[col] * 1;
+            //         // console.log(col, pos);
+            //         [0,1,2,3].forEach(row => newPos[row][col] = (row === pos) ? 'O' : '-')
+            //         TEN_DIG.forEach(td => newPos[pos][td] = (td === col) ? 'O' : '-');
+            //     } else return;
+            // }
 
 
+            // console.table(newPos);   
             setPosition(newPos);
 
 // WEIGHTS
