@@ -127,7 +127,8 @@ body {
     align-content: flex-start;
   }
   .output-list.opponent { 
-    color: teal 
+    color: teal;
+    backface-visibility: hidden;
   }
   .list-header {
     width: 100%;
@@ -211,7 +212,7 @@ body {
   .input-button:active > svg { transform: rotate(180deg) scale(.9); }
 }
 
-/*////////////////////////////// CHeat-SHeet  */
+/*////////////////////////////  DEV - CHeat-SHeet  */
 .ch-sh-wrap {
   z-index: 20;
   position: fixed;
@@ -230,13 +231,42 @@ body {
   color: wheat;
       /* overflow: hidden; */
 
-      /* display: none; */
+      display: none;
 }
+  .ch-sh-wrap.right {
+    left: auto; right: 0;
+  }
 
-.ch-sh-wrap.right {
-  left: auto; right: 0;
+/*////////////////////////////////////////// CLENT CHEAT SHEET */
+.cheat-sheet {
+  border-radius: .35em;
+  box-shadow: 
+      .1em .1em .1em #14161a,
+      -.1em -.1em .1em #3c424e,
+      inset .1em .1em .1em #14161a,
+      inset -.1em -.1em .1em #3c424e;
+  background-color: #24282f;
+  background-image: linear-gradient(-45deg, #24282f, #24282f 50%, #2b2f38 50%, #2b2f38);
+  background-size: .2rem .2rem;
+  width: 50%;
+  height: 100%;
+  padding: .25em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: .5em;
+  backface-visibility: hidden;
 }
-
-/* .ch-sh-weights {
-  color: teal;
-} */
+.cheat-sheet-table {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+.table-plates {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .25em;
+  padding: .125em 0;
+}
