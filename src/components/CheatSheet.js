@@ -53,7 +53,6 @@ const CheatSheet = ({ guess, res }) => {
                     .map(pos => (newPos[pos][d] === '-') ? '' : pos)
                     .join('') || '-'
                 )
-            console.table(gridDig);
 
     // digits that are ABSENT
             const digAbsent = gridDig
@@ -68,7 +67,6 @@ const CheatSheet = ({ guess, res }) => {
                 ]
             const nDP = [...new Set(newDigPresent)].sort((a,b) => a-b)
             setDigPresent(nDP);
-            console.log('PRESENT:', nDP);
 
     // recalculate newPos if all 4 digits finded
             if ([...new Set(newDigPresent)].length === 4) {
@@ -84,19 +82,17 @@ const CheatSheet = ({ guess, res }) => {
                 newPos
                     .map(pos => pos.slice(0, -1).filter(p => p === ' '))
                     .findIndex(pos => pos.length === 1)
-            // console.log(lastDigAtPos());
 
-            for (let c in '12')
+            for (let c in '1234')
                 updateRowNCol(lastDigAtPos());
 
             function updateRowNCol(lastDig) {
                 if (lastDig >= 0) {
                     const row = lastDigAtPos();
                     const d = newPos[row].indexOf(' ');
-                    TEN_DIG.forEach(td => newPos[row][td] = (td === d) ? '@' : '-');
+                    TEN_DIG.forEach(td => newPos[row][td] = (td === d) ? '+' : '-');
                     [0,1,2,3].forEach(r => {
-                        console.log(r, d, row)
-                        newPos[r][d] = (r === row) ? '@' : '-'
+                        newPos[r][d] = (r === row) ? '+' : '-'
                         newPos[r][10] = (r === row) ? d : newPos[r][10]
                     }) 
                 } else return;

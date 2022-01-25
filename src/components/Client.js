@@ -5,13 +5,18 @@ import Input4D from './Input4D';
 import OutputList from './OutputList';
 import DevCheatSheet from './DevCheatSheet';
 import CheatSheet from './CheatSheet';
-import { useState } from 'react';
+import CongratText from './CongratText';
+import { useEffect, useState } from 'react';
 
-function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame }) {
+function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame, myWin }) {
 
-  const lastIndex = myRes.length-1;
-  const opNumber = (myRes[lastIndex] !== '44') ? '????': myGuess[lastIndex];
+  const opNumber = (myWin) ? myGuess[myRes.length-1] : '????';
+
   const [chSh, setChSh] = useState(false);
+
+  useEffect(() => {
+    if (isMyTurn === null) setChSh(false)
+  }, [isMyTurn]);
 
 ////////////////////////////// RENDER /////////////////////////////
   return (
@@ -19,20 +24,22 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
 
         <Header/>
 
-        <Navbar restartGame={ restartGame } toggleCheatSheet={() => setChSh(!chSh) }/>
+        <Navbar restartGame={ restartGame } toggleCheatSheet={ ()=>setChSh(!chSh) }/>
 
         <DevCheatSheet guess={ myGuess } res={ myRes } />
 
         <div className='Client-output'>
             <OutputList guess={ myGuess } res={ myRes } num={ mySecret }/> 
-            {(chSh)
-              ? <CheatSheet guess={ myGuess } res={ myRes }/>
-              : <OutputList guess={ opGuess } res={ opRes } num={ opNumber } opponent={ true }/>
-            }    
+            <div className={(chSh) ? "output-flip is-flipped" : "output-flip" }>
+              <CheatSheet guess={ myGuess } res={ myRes }/>
+              <OutputList guess={ opGuess } res={ opRes } num={ opNumber } opponent={ true }/>
+            </div>
         </div>
 
-        <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn }/>
-        
+        <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/>
+
+        <CongratText win={ myWin }/>
+
     </div>
   );
 }

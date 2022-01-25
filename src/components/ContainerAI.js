@@ -20,8 +20,8 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
     }
     
     useEffect( () => {
-        // setOpSecret(uniqRndStr('0123456789'));
-        setOpSecret('1234');
+        setOpSecret(uniqRndStr('0123456789'));
+        // setOpSecret('1234');
     }, []);
 
     useEffect( () => console.log('ContainerAI number =', opSecret), [opSecret])

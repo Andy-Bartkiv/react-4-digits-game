@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     transform: translateX(calc(-1.02*min(62vh, 100vw)));
-    transition: .75s ease-in-out;
+    transition: transform .75s ease-in-out;
 }
 
 .modal_wrap {

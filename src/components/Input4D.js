@@ -2,8 +2,7 @@ import { useState, useLayoutEffect, useRef } from 'react';
 import Carousel from './UI/carousel/Carousel';
 import { BsSafe2 } from "react-icons/bs";
 
-
-const Input4D = ({ input, setInput, isMyTurn }) => {
+const Input4D = ({ input, setInput, isMyTurn, win=null }) => {
     const divRef = useRef();
     const [dimensions, setDimensions] = useState(null);
     useLayoutEffect(() => {
@@ -31,9 +30,10 @@ const Input4D = ({ input, setInput, isMyTurn }) => {
     }
 
     const btnStyle = 'input-button' + ((isMyTurn) ? '' : ' disabled');
+    const inputStyle ='Client-input-4D' + ((win !== true && win !== false) ? '' : ' endgame');
 
     return (
-      <div className="Client-input-4D" ref={ divRef }>
+      <div className={ inputStyle } ref={ divRef }>
 
         <div className={ btnStyle }
             style={{ fontSize: `${2*dim}px` }}
@@ -53,13 +53,6 @@ const Input4D = ({ input, setInput, isMyTurn }) => {
               )}
           </div>
         }
-
-        {/* <div className={ btnStyle }
-            style={{ fontSize: `${2*dim}px` }}
-            onClick={ handleSubmit }
-        >
-            <BsSafe2/>
-        </div> */}
 
       </div>
     );

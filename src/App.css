@@ -26,6 +26,7 @@ body {
 /* //////////// A P P ////////////// */
 .Client {
   height: 100vh;
+  overflow: hidden;
   width: min(62vh, 100vw);
   display: flex;
   flex-direction: column;
@@ -105,7 +106,18 @@ body {
   padding-top: .125em;
   gap: .25em;
   overflow: hidden;
+  perspective: 100rem;
 }
+  .output-flip {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    transition: transform .5s ease-in-out;
+    transform-style: preserve-3d;
+  }
+  .output-flip.is-flipped { 
+    transform: rotateY(180deg); 
+  }
   .output-list {
     border-radius: .35em;
     box-shadow: 
@@ -113,12 +125,10 @@ body {
         -.1em -.1em .1em #3c424e,
         inset .1em .1em .1em #14161a,
         inset -.1em -.1em .1em #3c424e;
-
-      background-color: #24282f;
-      background-color: #0882;
-      background-image: linear-gradient(-45deg, #0881, #0881 50%, var(--bg1-color) 50%, var(--bg1-color));
-      background-size: .2rem .2rem;
-
+    background-color: #24282f;
+    background-color: #0882;
+    background-image: linear-gradient(-45deg, #0881, #0881 50%, var(--bg1-color) 50%, var(--bg1-color));
+    background-size: .2rem .2rem;
     width: 50%;
     height: 100%;
     padding: .25em;
@@ -129,6 +139,9 @@ body {
   .output-list.opponent { 
     color: teal;
     backface-visibility: hidden;
+    position: absolute;
+    height: 100%;
+    width: 100%;
   }
   .list-header {
     width: 100%;
@@ -155,6 +168,8 @@ body {
   }
 /* //////////// INPUT ////////////// */
 .Client-input-4D {
+  z-index: 1;
+  background: var(--bg1-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -163,8 +178,9 @@ body {
   width: 100%;
   padding: .25em;
   margin-bottom: .5em;
+  transition: transform .75s ease-in-out;
 }
-
+.Client-input-4D.endgame { transform: translateY(105%); } 
 .input-car-block {
   width: 100%;
   display: flex;
@@ -212,6 +228,19 @@ body {
   .input-button:active > svg { transform: rotate(180deg) scale(.9); }
 }
 
+.congrat-text {
+  position: absolute;
+  bottom:0;
+  left: calc(50vw - min(31vh, 50vw));
+  height: 27.5vh;
+  width: min(62vh, 100vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .25em;
+  font-size: 1.25em;
+  color: orange;
+}
 /*////////////////////////////  DEV - CHeat-SHeet  */
 .ch-sh-wrap {
   z-index: 20;
@@ -257,6 +286,10 @@ body {
   justify-content: flex-start;
   gap: .5em;
   backface-visibility: hidden;
+  transform: rotateY( 180deg );
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 .cheat-sheet-table {
   display: grid;
@@ -269,4 +302,26 @@ body {
   justify-content: center;
   gap: .25em;
   padding: .125em 0;
+}
+
+/* ///////////////////////// MISCELANOUS */
+
+.secret-select-text {
+  position: absolute;
+  top:0; left:0;
+  height: 40vh;
+  width: min(62vh, 100vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5em;
+  font-size: 1em;
+  font-weight: 900;
+  color: #0889;
+  font-family: monospace;
+}
+.secret-select-word {
+  display: flex;
+  gap: .25em;
 }

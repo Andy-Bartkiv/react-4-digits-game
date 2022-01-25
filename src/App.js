@@ -6,6 +6,7 @@ import Client from './components/Client';
 import MyModal from './components/UI/modal/MyModal';
 import ContainerAI from './components/ContainerAI';
 import Input4D from './components/Input4D';
+import SecretSelectText from './components/SecretSelectText';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
   const [opRes, setOpRes] = useState([]);
   const [isMyTurn, setIsMyTurn] = useState(null);
   const [mySecret, setMySecret] = useState(null);
-  const [myWin, setMyWin] = useState(null);
+  const [myWin, setMyWin] = useState(null); // null
 
   useEffect( () => {
     if (mySecret) {
@@ -33,7 +34,7 @@ function App() {
   // CHECK WINING CONDITION 
   useEffect(() => {
     if (myRes.length && myRes.slice(-1)[0] === '44') {
-      // setMyWin(true);
+      setMyWin(true);
       // setIsMyTurn(null);
       console.log('You Win :)')
     }
@@ -42,7 +43,7 @@ function App() {
   useEffect(() => {
     if (opRes.length) setIsMyTurn(true);
     if (opRes.length && opRes.slice(-1)[0] === '44') {
-      // setMyWin(false);
+      setMyWin(false);
       // setIsMyTurn(null);
       console.log('You Loose :(')
     }
@@ -74,9 +75,9 @@ function App() {
     <>
     <MyModal
       visible = { modal }
-      setVisible = { setModal }
+      // setVisible = { setModal }
     >
-      {/* <div>Set-Up Your Secret Number</div> */}
+      <SecretSelectText/>
       
       <Input4D 
         input={ uniqRndStr('0123456789') } 
@@ -93,6 +94,8 @@ function App() {
       opRes={ opRes }
       isMyTurn= { isMyTurn }
       restartGame= { restartGame }
+      myWin= { myWin }
+      setMyWin= { setMyWin }
     />
     
     {(isMyTurn!==null) && 

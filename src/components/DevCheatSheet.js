@@ -108,7 +108,7 @@ const DevCheatSheet = ({ guess, res }) => {
                     .findIndex(pos => pos.length === 1)
             // console.log(lastDigAtPos());
 
-            for (let c in '12')
+            for (let c in '1234')
                 updateRowNCol(lastDigAtPos());
 
             function updateRowNCol(lastDig) {
