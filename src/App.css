@@ -260,11 +260,12 @@ body {
   color: wheat;
       /* overflow: hidden; */
 
-      display: none;
+      /* display: none; */
 }
   .ch-sh-wrap.right {
     left: auto; right: 0;
   }
+  .ch-sh-header { display: flex; gap: .125em}
 
 /*////////////////////////////////////////// CLENT CHEAT SHEET */
 .cheat-sheet {

@@ -10,6 +10,24 @@ function formNum(num) {
         : (num !== 0) ? num.toFixed(2).slice(1) : '0'
 }
 
+function calcUniqCombinations(arr) {
+    const res = [];
+    for (let d0 of arr[0]) {
+        // const newEl = d0;
+        for (let d1 of arr[1]) {      
+            if (!(d0).includes(d1))
+                for (let d2 of arr[2]) {
+                    if (!(d0+d1).includes(d2))
+                        for(let d3 of arr[3]) {
+                            if (!(d0+d1+d2).includes(d3))
+                                res.push(d0 + d1 + d2 + d3);
+                        }
+                }
+        }
+    }
+    return res;
+}
+
 const DevCheatSheet = ({ guess, res }) => {
 
     const header = '0123456789/';
@@ -31,7 +49,9 @@ const DevCheatSheet = ({ guess, res }) => {
             const TEN_DIG = '0123456789'.split('').map(ch => Number(ch));
             const lastGuess = guess.slice(-1)[0].split('').map(ch => Number(ch));
             const lastRes = res.slice(-1)[0].split('').map(ch => Number(ch));
-            const uniqDigits = [...new Set(lastGuess)];
+            const calcUniqDigits = (oneGuess) => [...new Set(oneGuess)];
+            const uniqDigits = calcUniqDigits(lastGuess);
+            let newDig1Present = [];
             const restDigits = TEN_DIG.filter(d => !uniqDigits.includes(d));
 
             const newPos = [...position].map(row => [...row]);
@@ -60,13 +80,51 @@ const DevCheatSheet = ({ guess, res }) => {
                     );
             }
 
+    // ANALYSE Previous Guesses
+            let digCnt = 0;
+            let lastIndex = res.length - 1;
+            let collection = [];
+            let outOfCol = [...Array(10).keys()];
+
+            while (digCnt < 4 && lastIndex >= 0) {
+                let thisGuess = guess[lastIndex].split('').map(d => Number(d));
+                let thisRes = res[lastIndex].split('').map(d => Number(d));
+                const thisCol = calcUniqDigits(thisGuess);
+                if (thisCol.some(item => !collection.includes(item))) {
+                    calcUniqDigits(thisGuess).forEach(d => {
+                        if (collection.includes(d))
+                            digCnt -= 1;
+                        else
+                            collection.push(d);
+                    })
+                    digCnt += Number(thisRes[0]);
+                    outOfCol = outOfCol.filter(d => !collection.includes(d));
+                }
+                lastIndex--;
+                console.log(thisRes, thisGuess);
+                console.log('->', lastIndex, 'd:', digCnt, collection, outOfCol);
+            }
+    // If you already have all 4 numbers Make all outOfCol -ABSENT
+            if (digCnt === 4 && outOfCol.length > 0 && outOfCol.length < 5 ) {
+                outOfCol.forEach(d =>
+                    newPos.map(row => row[d] = '-')
+                );
+            }
+    // If obvious that all outOfCol -PRESENT
+            if (digCnt < 5 && digCnt === 4 - outOfCol.length) {
+                    console.log('im in', digCnt, 4 - outOfCol.length)
+                    const updDigPresent = [...digPresent, ...outOfCol];
+                    newDig1Present = [...newDig1Present, ...calcUniqDigits(updDigPresent)];
+                    console.log('PRESENT:1', newDig1Present);
+                }
+
 // ANALYSE POSITIONS GRID
     // digits available for each position
             const gridPos = newPos.map(row => TEN_DIG
                     .filter(d => row[d] !== '-')
                     .join('')
                 )
-            // console.table(gridPos);
+            console.table(gridPos);
 
     // position available for each number
             const gridDig = TEN_DIG.map(d => [0,1,2,3]
@@ -75,27 +133,28 @@ const DevCheatSheet = ({ guess, res }) => {
                 )
             // console.table(gridDig);
 
-    // digits that are ABSENT
+    // calc digits that are ABSENT and if their number is 6 - get 4 Present digits
             const digAbsent = gridDig
                 .map((d, i) => (d === '-') ? i : -1)
                 .filter(p => p >= 0);
+            if (digAbsent.length === 6)
+                newDig1Present.push(...TEN_DIG.filter(d => !digAbsent.includes(d)));
             // console.log('ABSENT-', digAbsent);
 
     // digits that are definetely present
-            const newDigPresent = [...digPresent,
+            const updDigPresent = [...digPresent, ...newDig1Present,
                 ...uniqDigits
                     .map( d => (lastRes[0] / uniqDigits.length === 1) ? d : -1 )
                     .filter(d => d >= 0)
-                ]
-            const nDP = [...new Set(newDigPresent)].sort((a,b) => a-b)
-            setDigPresent(nDP);
-            console.log('PRESENT:', nDP);
+                ];
+            const newDigPresent = calcUniqDigits(updDigPresent).sort((a,b) => a-b);
+            setDigPresent(newDigPresent);
 
     // recalculate newPos if all 4 digits finded
                             // if (digPresent.length === 4) console.log('1/2 Victory') -> useEffect [digPresent]
-            if ([...new Set(newDigPresent)].length === 4) {
+            if (newDigPresent.length === 4) {
                 TEN_DIG
-                    .filter(d => !nDP.includes(d))
+                    .filter(d => !newDigPresent.includes(d))
                     .forEach(d =>
                         [0,1,2,3].forEach(row =>
                             newPos[row][d] = '-'));
@@ -107,16 +166,22 @@ const DevCheatSheet = ({ guess, res }) => {
                     .map(pos => pos.slice(0, -1).filter(p => p === ' '))
                     .findIndex(pos => pos.length === 1)
             // console.log(lastDigAtPos());
-
+    // updating newPos up to 4 times based on lastDigPos
             for (let c in '1234')
                 updateRowNCol(lastDigAtPos());
-
             function updateRowNCol(lastDig) {
                 if (lastDig >= 0) {
                     const row = lastDigAtPos();
                     const d = newPos[row].indexOf(' ');
-                    TEN_DIG.forEach(td => newPos[row][td] = (td === d) ? 'O' : '-');
+    // THERE is SOME BUG TypeError: Cannot read properties of undefined (reading '3') at updateRowNCol (DevCheatSheet.js:179:1) 
+    // 0101, 2323, 4545, 1054, 1052, 3052
+                    // TEN_DIG.forEach(td => {
+                    //     console.log('bingo per digits')
+                    //     newPos[row][td] = (td === d) ? 'O' : '-';
+                    //     if (td === d) newDig1Present.push(td);
+                    // })
                     [0,1,2,3].forEach(r => {
+                        console.log('bingo per rows')
                         newPos[r][d] = (r === row) ? 'O' : '-'
                         newPos[r][10] = (r === row) ? d : newPos[r][10]
                     }) 
@@ -126,13 +191,13 @@ const DevCheatSheet = ({ guess, res }) => {
             // const lastPosForDig = () =>
             //     gridDig
             //         .map((d,i) => 
-            //             (nDP.includes(i) && d.length===1 && d !== '-') 
+            //             (newDigPresent.includes(i) && d.length===1 && d !== '-') 
             //                 ? i : -1)
             //         .filter(d => d > 0)
             //         [0];
     
             // console.log('LPFD', lastPosForDig(), gridDig[lastPosForDig()]);
-            // for (let c in '12')
+            // for (let c in '1234')
             //     updateColumn(lastPosForDig());
 
             // function updateColumn(lastPos) {
@@ -145,6 +210,19 @@ const DevCheatSheet = ({ guess, res }) => {
             //     } else return;
             // }
 
+            // console.log('ABSENT-', digAbsent);
+
+
+    // Calculate array of possible combinations
+
+            console.log(gridPos.map(num => num.length));
+            let arrRndGuesses = [];
+            if (gridPos.map(num => num.length).some(len => len < 8)) {
+                console.log(guess);
+                arrRndGuesses = calcUniqCombinations(gridPos).filter(num => !guess.includes(num));
+                const rndNumber = arrRndGuesses[Math.floor(Math.random()*arrRndGuesses.length)]
+                console.log(arrRndGuesses.length, rndNumber)
+            }
 
             // console.table(newPos);   
             setPosition(newPos);
@@ -172,7 +250,10 @@ const DevCheatSheet = ({ guess, res }) => {
         <div className="ch-sh-wrap right">
 
             <div className="ch-sh-header">
-                <NumPlates str={ header } />
+                {/* <NumPlates str={ header } /> */}
+                { header.split('').map((d, i) =>
+                    <Plate key={i} char={ (digPresent.includes(d*1)) ? 'V' : d }/>
+                )}
             </div>
             <div className="ch-sh-position">
                 { position.map((row, i) =>

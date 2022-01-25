@@ -20,16 +20,16 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
     }
     
     useEffect( () => {
-        setOpSecret(uniqRndStr('0123456789'));
-        // setOpSecret('1234');
+        // setOpSecret(uniqRndStr('0123456789'));
+        setOpSecret('1234');
     }, []);
 
-    useEffect( () => console.log('ContainerAI number =', opSecret), [opSecret])
+    useEffect( () => console.log('ContainerAI number =', opSecret), [opSecret]);
 
     useEffect(() => {
         if (myGuess.length && isMyTurn !== null) {
             const t = setTimeout(() => {
-                const newRes = calcDigitMatch(myGuess[myGuess.length-1], opSecret)
+                const newRes = calcDigitMatch(myGuess[myGuess.length-1], opSecret);
                 setMyRes([...myRes, newRes]);
             }, 75); // 750        
         }
@@ -37,12 +37,13 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
     }, [myGuess]);
 
     useEffect(() => {
-                            // Condition SHOULD BE CHANGED
-        if (isMyTurn === false && myRes.slice(-1)[0] !== '44' && myRes.length < 12) {
-            console.log('Calculating OP Guess')
+        if (isMyTurn === false 
+            && myRes.slice(-1)[0] !== '44' 
+            && myRes.length < 12) {
+                // console.log('Calculating OP Guess')
             const t = setTimeout(() => {
                 setOpGuess([...opGuess, calcNewGuess(opGuess, opRes)]);
-            }, 1250); // 2500
+            }, 250); // 2500
         }
         return (t) => clearTimeout(t);
     }, [myRes]);
