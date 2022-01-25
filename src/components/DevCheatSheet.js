@@ -73,7 +73,7 @@ const DevCheatSheet = ({ guess, res }) => {
                     .map(pos => (newPos[pos][d] === '-') ? '' : pos)
                     .join('') || '-'
                 )
-            console.table(gridDig);
+            // console.table(gridDig);
 
     // digits that are ABSENT
             const digAbsent = gridDig

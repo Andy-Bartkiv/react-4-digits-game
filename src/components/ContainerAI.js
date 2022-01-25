@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { rndStr, uniqRndStr } from "../utils/rndMethods";
 import calcDigitMatch from "../utils/calcDigitMatch";
 
-const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, opRes }) => {
+const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, opRes, myWin }) => {
     
     const [opSecret, setOpSecret] = useState(null);
 
@@ -31,20 +31,18 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
             const t = setTimeout(() => {
                 const newRes = calcDigitMatch(myGuess[myGuess.length-1], opSecret)
                 setMyRes([...myRes, newRes]);
-            }, 75); // 750
-        
-                        // console.log('ContainerAI number =', opSecret);
+            }, 75); // 750        
         }
         return (t) => clearTimeout(t);
     }, [myGuess]);
 
     useEffect(() => {
                             // Condition SHOULD BE CHANGED
-        if (isMyTurn === false && myRes.slice(-1)[0] !== '44') {
-            // console.log('Calculating OP Guess')
+        if (isMyTurn === false && myRes.slice(-1)[0] !== '44' && myRes.length < 12) {
+            console.log('Calculating OP Guess')
             const t = setTimeout(() => {
                 setOpGuess([...opGuess, calcNewGuess(opGuess, opRes)]);
-            }, 250); // 2500
+            }, 1250); // 2500
         }
         return (t) => clearTimeout(t);
     }, [myRes]);

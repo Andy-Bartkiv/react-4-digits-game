@@ -35,8 +35,8 @@ function App() {
   useEffect(() => {
     if (myRes.length && myRes.slice(-1)[0] === '44') {
       setMyWin(true);
-      // setIsMyTurn(null);
-      console.log('You Win :)')
+    } else if (myRes.length && myRes.length >= 12) {
+      setMyWin(false);
     }
   }, [myRes])
 
@@ -44,8 +44,8 @@ function App() {
     if (opRes.length) setIsMyTurn(true);
     if (opRes.length && opRes.slice(-1)[0] === '44') {
       setMyWin(false);
-      // setIsMyTurn(null);
-      console.log('You Loose :(')
+    } else if (opRes.length && opRes.length >= 12) {
+      setMyWin(true);
     }
   }, [opRes]);
 
