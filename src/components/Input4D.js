@@ -2,7 +2,7 @@ import { useState, useLayoutEffect, useRef } from 'react';
 import Carousel from './UI/carousel/Carousel';
 import { BsSafe2 } from "react-icons/bs";
 
-const Input4D = ({ input, setInput, isMyTurn, win=null }) => {
+const Input4D = ({ input, setInput, isMyTurn, win=null, uniqDigits=false }) => {
     const divRef = useRef();
     const [dimensions, setDimensions] = useState(null);
     useLayoutEffect(() => {
@@ -25,8 +25,20 @@ const Input4D = ({ input, setInput, isMyTurn, win=null }) => {
     // console.log(dimensions, dim, dim2, isMyTurn);
 
     const handleSubmit = () => {
-      if (isMyTurn)
-        setInput([...input, Object.values(cars).join('')]);
+      if (isMyTurn) {
+        const res = Object.values(cars).join('');
+        const notQniqInd = [];
+        if (uniqDigits) {
+          for (let d of res) {
+            const i = res.indexOf(d);
+            const res3 = res.slice(0, i) + res.slice(i+1);
+            if (res3.includes(d)) notQniqInd.push(i);
+          }
+          console.log('NOT ALL DIGITS ARE UNIQ', res, notQniqInd.map(i => res[i]));
+          if (notQniqInd.length > 0) return;
+        } 
+        setInput([...input, res]);
+      } 
     }
 
     const btnStyle = 'input-button' + ((isMyTurn) ? '' : ' disabled');

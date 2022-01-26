@@ -82,6 +82,7 @@ function App() {
       <Input4D 
         input={ uniqRndStr('0123456789') } 
         setInput={ (val) => setMySecret(val.slice(-1)[0]) } 
+        uniqDigits={ true }
         isMyTurn={ modal }/>
     </MyModal>
 

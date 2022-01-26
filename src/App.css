@@ -232,15 +232,17 @@ body {
   position: absolute;
   bottom:0;
   left: calc(50vw - min(31vh, 50vw));
-  height: 27.5vh;
+  height: 10rem;
   width: min(62vh, 100vw);
   display: flex;
   justify-content: center;
   align-items: center;
   gap: .25em;
   font-size: 1.25em;
-  color: orange;
 }
+.congrat-text.win { color: orange; }
+.congrat-text.loose { color: teal; }
+
 /*////////////////////////////  DEV - CHeat-SHeet  */
 .ch-sh-wrap {
   z-index: 20;
@@ -260,7 +262,7 @@ body {
   color: wheat;
       /* overflow: hidden; */
 
-      display: none;
+      /* display: none; */
 }
   .ch-sh-wrap.right {
     left: auto; right: 0;

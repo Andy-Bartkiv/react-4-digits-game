@@ -167,7 +167,7 @@ const DevCheatSheet = ({ guess, res }) => {
                     .findIndex(pos => pos.length === 1)
             // console.log(lastDigAtPos());
     // updating newPos up to 4 times based on lastDigPos
-            for (let c in '1234')
+            for (let c of '1234')
                 updateRowNCol(lastDigAtPos());
             function updateRowNCol(lastDig) {
                 if (lastDig >= 0) {
@@ -198,7 +198,7 @@ const DevCheatSheet = ({ guess, res }) => {
                     [0];
     
             // console.log('LPFD', lastPosForDig(), gridDig[lastPosForDig()]);
-            for (let c in '1234')
+            for (let c of '1234')
                 updateColumn(lastPosForDig());
             function updateColumn(lastPos) {
                 if (lastPos >= 0) {
