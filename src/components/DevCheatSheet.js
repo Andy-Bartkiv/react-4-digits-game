@@ -173,10 +173,10 @@ const DevCheatSheet = ({ guess, res }) => {
                 if (lastDig >= 0) {
                     const row = lastDigAtPos();
                     const d = newPos[row].indexOf(' ');
-    // THERE is SOME BUG TypeError: Cannot read properties of undefined (reading '3') at updateRowNCol (DevCheatSheet.js:179:1) 
-    // 0101, 2323, 4545, 1054, 1052, 3052
+// THERE is SOME BUG TypeError: Cannot read properties of undefined (reading '3') at updateRowNCol (DevCheatSheet.js:179:1) 
+// 0101, 2323, 4545, 1054, 1052, 3052
                     // TEN_DIG.forEach(td => {
-                    //     console.log('bingo per digits')
+                    //     console.log('bingo per digits', row, d, td)
                     //     newPos[row][td] = (td === d) ? 'O' : '-';
                     //     if (td === d) newDig1Present.push(td);
                     // })
@@ -184,44 +184,44 @@ const DevCheatSheet = ({ guess, res }) => {
                         console.log('bingo per rows')
                         newPos[r][d] = (r === row) ? 'O' : '-'
                         newPos[r][10] = (r === row) ? d : newPos[r][10]
+                        if (r === row) newDig1Present.push(d);
                     }) 
                 } else return;
             }
     // recalculate newPos if any digPresent has only 1 legal position
-            // const lastPosForDig = () =>
-            //     gridDig
-            //         .map((d,i) => 
-            //             (newDigPresent.includes(i) && d.length===1 && d !== '-') 
-            //                 ? i : -1)
-            //         .filter(d => d > 0)
-            //         [0];
+            const lastPosForDig = () =>
+                gridDig
+                    .map((d,i) => 
+                        (newDigPresent.includes(i) && d.length===1 && d !== '-') 
+                            ? i : -1)
+                    .filter(d => d > 0)
+                    [0];
     
             // console.log('LPFD', lastPosForDig(), gridDig[lastPosForDig()]);
-            // for (let c in '1234')
-            //     updateColumn(lastPosForDig());
+            for (let c in '1234')
+                updateColumn(lastPosForDig());
+            function updateColumn(lastPos) {
+                if (lastPos >= 0) {
+                    const col = lastPosForDig();
+                    const pos = gridDig[col] * 1;
+                    // console.log(col, pos);
+                    [0,1,2,3].forEach(row => newPos[row][col] = (row === pos) ? 'O' : '-')
+                    TEN_DIG.forEach(td => newPos[pos][td] = (td === col) ? 'O' : '-');
+                } else return;
+            }
 
-            // function updateColumn(lastPos) {
-            //     if (lastPos >= 0) {
-            //         const col = lastPosForDig();
-            //         const pos = gridDig[col] * 1;
-            //         // console.log(col, pos);
-            //         [0,1,2,3].forEach(row => newPos[row][col] = (row === pos) ? 'O' : '-')
-            //         TEN_DIG.forEach(td => newPos[pos][td] = (td === col) ? 'O' : '-');
-            //     } else return;
-            // }
-
-            // console.log('ABSENT-', digAbsent);
+            console.log('ABSENT-', digAbsent);
 
 
     // Calculate array of possible combinations
 
-            console.log(gridPos.map(num => num.length));
+            // console.log(gridPos.map(num => num.length));
             let arrRndGuesses = [];
             if (gridPos.map(num => num.length).some(len => len < 8)) {
                 console.log(guess);
                 arrRndGuesses = calcUniqCombinations(gridPos).filter(num => !guess.includes(num));
                 const rndNumber = arrRndGuesses[Math.floor(Math.random()*arrRndGuesses.length)]
-                console.log(arrRndGuesses.length, rndNumber)
+        console.log(arrRndGuesses.length, rndNumber)
             }
 
             // console.table(newPos);   
