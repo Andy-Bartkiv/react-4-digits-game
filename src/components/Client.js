@@ -16,7 +16,10 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
   const [appChat, setAppChat] = useState(false);
 
   useEffect(() => {
-    if (isMyTurn === null) setChSh(false)
+    if (isMyTurn === null) {
+      setAppChat(false);
+      setChSh(false);
+    } 
   }, [isMyTurn]);
 
 ////////////////////////////// RENDER /////////////////////////////
@@ -25,9 +28,11 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
 
         <Header/>
 
-        <Navbar 
+        <Navbar
+          chat= { appChat }
           toggleChat={ ()=>setAppChat(!appChat) } 
           restartGame={ restartGame } 
+          cheatSheet= { chSh }
           toggleCheatSheet={ ()=>setChSh(!chSh) }
         />
 
