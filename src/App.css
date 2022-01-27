@@ -115,8 +115,11 @@ body {
     transition: transform .5s ease-in-out;
     transform-style: preserve-3d;
   }
-  .output-flip.is-flipped { 
+  .output-flip.is-flipped-r { 
     transform: rotateY(180deg); 
+  }
+  .output-flip.is-flipped-l { 
+    transform: rotateY(-180deg); 
   }
   .output-list {
     border-radius: .35em;
@@ -135,13 +138,13 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-  }
-  .output-list.opponent { 
-    color: teal;
     backface-visibility: hidden;
     position: absolute;
     height: 100%;
     width: 100%;
+  }
+  .output-list.opponent { 
+    color: teal;
   }
   .list-header {
     width: 100%;

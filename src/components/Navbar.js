@@ -1,10 +1,21 @@
-const Navbar = ({ restartGame, toggleCheatSheet }) => {
+import { useState } from "react"
+
+const Navbar = ({ toggleChat, restartGame, toggleCheatSheet }) => {
+
+    const [hint, setHint] = useState(false);
+    const [chat, setChat] = useState(false);
+
     return (
         <div className='Client-navbar'>
-            <li>Menu</li>
-            {/* <li onClick={ (isMyTurn) ? restartGame : null }>Game</li> */}
-            <li onClick={ restartGame }>Game</li>
-            <li onClick={ toggleCheatSheet }>Hint</li>
+            <li onClick={ () => { setChat(!chat); toggleChat(); }}>
+                { (chat) ? 'Guess' : 'Chat' }
+            </li>
+            <li onClick={ restartGame }>
+                Menu
+            </li>
+            <li onClick={ () => { setHint(!hint); toggleCheatSheet(); }}>
+                { (hint) ? 'Watch' : 'Hint' }
+            </li>
         </div>
     )
 }

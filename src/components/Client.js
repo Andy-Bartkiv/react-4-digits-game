@@ -13,6 +13,7 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
   const opNumber = (myWin) ? myGuess[myRes.length-1] : '????';
 
   const [chSh, setChSh] = useState(false);
+  const [appChat, setAppChat] = useState(false);
 
   useEffect(() => {
     if (isMyTurn === null) setChSh(false)
@@ -24,13 +25,22 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
 
         <Header/>
 
-        <Navbar restartGame={ restartGame } toggleCheatSheet={ ()=>setChSh(!chSh) }/>
+        <Navbar 
+          toggleChat={ ()=>setAppChat(!appChat) } 
+          restartGame={ restartGame } 
+          toggleCheatSheet={ ()=>setChSh(!chSh) }
+        />
 
         <DevCheatSheet guess={ myGuess } res={ myRes } />
 
         <div className='Client-output'>
-            <OutputList guess={ myGuess } res={ myRes } num={ mySecret }/> 
-            <div className={(chSh) ? "output-flip is-flipped" : "output-flip" }>
+
+            <div className={(appChat) ? "output-flip is-flipped-l" : "output-flip" }>
+              <CheatSheet guess={ myGuess } res={ myRes }/>
+              <OutputList guess={ myGuess } res={ myRes } num={ mySecret }/> 
+            </div>
+
+            <div className={(chSh) ? "output-flip is-flipped-r" : "output-flip" }>
               <CheatSheet guess={ myGuess } res={ myRes }/>
               <OutputList guess={ opGuess } res={ opRes } num={ opNumber } opponent={ true }/>
             </div>
