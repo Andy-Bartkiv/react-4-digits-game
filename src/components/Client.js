@@ -2,6 +2,7 @@ import Loader from './UI/loader/Loader';
 import Header from './Header';
 import Navbar from './Navbar';
 import Input4D from './Input4D';
+import Input from './Input';
 import OutputList from './OutputList';
 import DevCheatSheet from './DevCheatSheet';
 import CheatSheet from './CheatSheet';
@@ -51,7 +52,9 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
             </div>
         </div>
 
-        <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/>
+        {/* <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/> */}
+
+        <Input input={ myGuess } setInput={ setMyGuess }/>
 
         <CongratText win={ myWin }/>
 

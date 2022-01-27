@@ -99,20 +99,24 @@ const DevCheatSheet = ({ guess, res }) => {
                 let thisGuess = guess[lastIndex].split('').map(d => Number(d));
                 let thisRes = res[lastIndex].split('').map(d => Number(d));
                 const thisCol = calcUniqDigits(thisGuess);
+            // console.log('START', digCnt, thisRes, thisGuess, thisCol);
+            // console.log(collection, outOfCol);
                 if (thisCol.some(item => !collection.includes(item))) {
-                    digCnt =  digCnt + thisRes[0];
+                    let maxRes0 = thisRes[0];
                     thisCol.forEach(d => {
-                        if (collection.includes(d))
-                            digCnt -= 1;
-                        else
+                        if (!collection.includes(d)) {
                             collection.push(d);
+                            // if (!digAbsent.includes(d)) {
+                                digCnt += (maxRes0 > 0) ? 1 : 0;
+                                maxRes0--;
+                            // }
+                        }
                     })
-                    console.log('TEST-TEST', thisCol, thisGuess, thisRes, digCnt)
-                    outOfCol = outOfCol.filter(d => !collection.includes(d));
+            // console.log('Inside IF', thisCol, digCnt);
+            outOfCol = outOfCol.filter(d => !collection.includes(d));
                 }
                 lastIndex--;
-                console.log(thisRes, thisGuess);
-                console.log('->', lastIndex, 'd:', digCnt, collection, outOfCol);
+                // console.log('END of WHILE', lastIndex, 'd:', digCnt, collection, outOfCol);
             }
     // If you already have all 4 numbers Make all outOfCol -ABSENT
             if (digCnt === 4 && outOfCol.length > 0 && outOfCol.length < 5 ) {
@@ -122,8 +126,8 @@ const DevCheatSheet = ({ guess, res }) => {
             }
     // If obvious that all outOfCol -PRESENT
             if (digCnt < 5 && digCnt === 4 - outOfCol.length) {
-                    console.log('im in', digCnt, 4 - outOfCol.length);
-                    console.log(outOfCol);
+                    // console.log('im in', digCnt, 4 - outOfCol.length);
+                    // console.log(outOfCol);
                     const updDigPresent = [...digPresent, ...outOfCol];
                     newDigPresent = [...newDigPresent, ...calcUniqDigits(updDigPresent)];
                 }
@@ -186,7 +190,7 @@ const DevCheatSheet = ({ guess, res }) => {
                     //     if (td === d) newDigPresent.push(td);
                     // })
                     [0,1,2,3].forEach(r => {
-                        console.log('bingo per rows')
+                        // console.log('bingo per rows')
                         newPos[r][d] = (r === row) ? 'O' : '-'
                         newPos[r][10] = (r === row) ? d : newPos[r][10]
                         if (r === row && !newDigPresent.includes(d)) 
@@ -198,7 +202,7 @@ const DevCheatSheet = ({ guess, res }) => {
     // update newPos by revising Prev Guesses considering PRESENT and ABSENT
         // PRESENT
             if (newDigPresent.length > 0) {
-                console.log('REVISION on PRESENT', newDigPresent);
+                // console.log('REVISION on PRESENT', newDigPresent);
                 const updGuess = guess.map(g => {
                     newDigPresent.forEach(d => {
                         const re = new RegExp(d, "g");
@@ -225,7 +229,7 @@ const DevCheatSheet = ({ guess, res }) => {
             }
         // ABSENT
             if (digAbsent.length > 0) {
-                console.log('REVISION on ABSENT', digAbsent);
+                // console.log('REVISION on ABSENT', digAbsent);
                 const updGuess = guess.map(g => {
                     digAbsent.forEach(d => {
                         const re = new RegExp(d, "g");
@@ -286,6 +290,12 @@ const DevCheatSheet = ({ guess, res }) => {
             // console.table(newPos);   
             setDigPresent(newDigPresent);
             setPosition(newPos);
+
+                        // 7928 - 5246 - 1345 - 1335 - 1331 - 1802 - 1230 ERROR (2,4) Absent , (0) Present
+
+            // Other potentially breaking combos:
+            // 0101 - 2323 - 4545 - 1054 - 1052 - 3052
+            // 9012 - 8764 - 3535 - 2809 - 3125 - 1930
 
 // WEIGHTS
             // let newWeights = createArray11(String(res.length));

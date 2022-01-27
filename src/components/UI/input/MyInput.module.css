@@ -1,0 +1,12 @@
+.my_input {
+    width: 100%;
+    padding: .25em;
+    border: .1em solid #008080;
+    color: orange;
+    background: #282c44;
+}
+
+.my_input:focus {
+    border: .1em solid #ffa500cc;
+    outline: none;
+}
