@@ -30,8 +30,9 @@ const ChatTab = () => {
 
     return (
         <div className="cheat-sheet client-chat">
-            <form className='chat-input-form'>
-
+            <form className='chat-input-form'
+                onSubmit={ handleSubmit }
+            >
                 <div className="chat-btn"
                     onClick={ handleSubmit }
                 >

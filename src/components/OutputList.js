@@ -1,4 +1,5 @@
 import NumPlates from "./NumPlates";
+import Plate from "./UI/plate/Plate";
 
 const OutputList = ({ guess, res, num, opponent=false }) => {
   

@@ -1,5 +1,6 @@
 import NumPlates from "./NumPlates";
 import Plate from "./UI/plate/Plate";
+import PlateActive from "./UI/plateActive/PlateActive";
 import { useState, useEffect } from "react";
 
 const CheatSheet = ({ guess, res }) => {
@@ -169,23 +170,22 @@ const CheatSheet = ({ guess, res }) => {
     }, [res])
 
 
-
     return (
         <div className="cheat-sheet">
 
-            <div className="list-header">
-                {/* <NumPlates str={ 'O' } /> */}
-                <NumPlates str={ header } />
-                {/* <NumPlates str={ 'X' } /> */}
+            <div className="list-header" style={{ paddingTop:'.25em' }}>
+                {/* <NumPlates str={ header } /> */}
+                { header.split('').map((e, i) => <Plate key={i} char={ e } bg={'teal'}/>) }
+
             </div>
 
             <div className="cheat-sheet-table">
                 <div className="table-plates">
-                    {'0123456789>'.split('').map((e, i) => <Plate key={i} char={ e }/>)}
+                    {'0123456789='.split('').map((e, i) => <PlateActive key={i} char={ e } bg={'norm'}/>)}
                 </div>
                 { position.map((pos, iP) =>
                     <div key={iP+100} className="table-plates">
-                        { pos.map((e, i) => <Plate key={i} char={ e }/> )}
+                        { pos.map((e, i) => <PlateActive key={i} char={ e } bg={'norm'}/> )}
                     </div>
                 )}
             </div>
