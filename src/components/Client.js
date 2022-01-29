@@ -5,6 +5,7 @@ import Input4D from './Input4D';
 import Input from './Input';
 import OutputList from './OutputList';
 import DevCheatSheet from './DevCheatSheet';
+import ChatTab from './ChatTab';
 import CheatSheet from './CheatSheet';
 import CongratText from './CongratText';
 import { useEffect, useState } from 'react';
@@ -18,8 +19,10 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
 
   useEffect(() => {
     if (isMyTurn === null) {
-      setAppChat(false);
-      setChSh(false);
+      setTimeout(() => {
+        setAppChat(false);
+        setChSh(false);
+      }, 500)
     } 
   }, [isMyTurn]);
 
@@ -42,7 +45,7 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
         <div className='Client-output'>
 
             <div className={(appChat) ? "output-flip is-flipped-l" : "output-flip" }>
-              <CheatSheet guess={ myGuess } res={ myRes }/>
+              <ChatTab/>
               <OutputList guess={ myGuess } res={ myRes } num={ mySecret }/> 
             </div>
 
@@ -52,9 +55,9 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
             </div>
         </div>
 
-        {/* <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/> */}
+        <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/>
 
-        <Input input={ myGuess } setInput={ setMyGuess }/>
+        {/* <Input input={ myGuess } setInput={ setMyGuess }/> */}
 
         <CongratText win={ myWin }/>
 

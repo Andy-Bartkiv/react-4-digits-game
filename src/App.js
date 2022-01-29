@@ -64,9 +64,9 @@ function App() {
       setMyGuess([]); setMyRes([]);
       setOpGuess([]); setOpRes([]);
       setIsMyTurn(null);
-      setMyWin(null);
       setMySecret(null);
       setModal(true);
+      setTimeout( () => setMyWin(null), 500);
     }
   }
 

@@ -4,8 +4,6 @@ const Navbar = ({ chat, toggleChat, restartGame, cheatSheet, toggleCheatSheet })
 
     const [msgCnt, setMsgCnt] = useState(2);
 
-    const chatText = (msgCnt === 0) ? 'Chat' : 'Chat - ' + msgCnt; 
-
     function handleChatClick() {
         if (!chat) setMsgCnt(0); 
         toggleChat();
@@ -16,7 +14,10 @@ const Navbar = ({ chat, toggleChat, restartGame, cheatSheet, toggleCheatSheet })
             <li onClick={ handleChatClick }>
                 { (chat) 
                     ? 'My Guess' 
-                    : chatText }
+                    : 'Chat' }
+                { !chat && msgCnt > 0 && 
+                    <span className="new-msg-indicator">+{ msgCnt }</span> 
+                }
             </li>
             <li onClick={ restartGame }>
                 Menu
