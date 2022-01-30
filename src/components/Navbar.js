@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useState } from "react";
+import { FiMessageCircle} from 'react-icons/fi';
+import { BiMessageSquareDots } from 'react-icons/bi';
 
 const Navbar = ({ chat, toggleChat, restartGame, cheatSheet, toggleCheatSheet }) => {
 
@@ -15,8 +17,11 @@ const Navbar = ({ chat, toggleChat, restartGame, cheatSheet, toggleCheatSheet })
                 { (chat) 
                     ? 'My Guess' 
                     : 'Chat' }
-                { !chat && msgCnt > 0 && 
-                    <span className="new-msg-indicator">+{ msgCnt }</span> 
+                { !chat && msgCnt > 0 &&
+                    <>
+                    {/* <span className="new-msg-indicator">+{ msgCnt }</span>  */}
+                    <span className="new-msg-icon"> <BiMessageSquareDots/>  </span> 
+                    </>
                 }
             </li>
             <li onClick={ restartGame }>

@@ -99,19 +99,25 @@ body {
   .Client-navbar li:hover { color: teal }
 
   .new-msg-indicator {
-    /* border: .1em solid orange; */
     border-radius: .25em;
     width: 1.25em;
     height: 1.25em;
-    /* background: var(--bg1-color); */
-    /* box-shadow: inset .1em .1em .1em #14161a,
-    inset -.1em -.1em .1em #3c424e; */
     display: flex; align-items: center; justify-content: center;
-
     color: orange;
-    font-size: .75em;
+    font-size: .5em;
     position: absolute;
     right: .25em;
+  }
+
+  .new-msg-icon {
+    /* width: 1.25em;
+    height: 1.25em; */
+    display: flex; align-items: center; justify-content: center;
+    color: #ffa500cc;
+    font-size: 1em;
+    position: absolute;
+    right: .25em;
+    transform: scaleX(-1);
   }
 
 /* //////////// OUTPUT ////////////// */

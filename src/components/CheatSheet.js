@@ -181,11 +181,11 @@ const CheatSheet = ({ guess, res }) => {
 
             <div className="cheat-sheet-table">
                 <div className="table-plates">
-                    {'0123456789='.split('').map((e, i) => <PlateActive key={i} char={ e } bg={'norm'}/>)}
+                    {'0123456789='.split('').map((e, i) => <PlateActive key={i} char={ e }/>)}
                 </div>
                 { position.map((pos, iP) =>
                     <div key={iP+100} className="table-plates">
-                        { pos.map((e, i) => <PlateActive key={i} char={ e } bg={'norm'}/> )}
+                        { pos.map((e, i) => <PlateActive key={i} char={ e }/> )}
                     </div>
                 )}
             </div>
