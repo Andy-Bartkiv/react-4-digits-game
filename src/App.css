@@ -41,12 +41,14 @@ body {
 /* //////////// HEADER ////////////// */
 .Client-header {
   width: calc(100% - .25em);
-  margin-top: .125em;
-  padding: .125em 0;
+  margin-top: .25em;
+  padding: .125em .75em;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  justify-content: center;
+  /* justify-content: center; */
+
+
   border-radius: .5em;
   color: var(--prm-color);
   background-color: #0882;

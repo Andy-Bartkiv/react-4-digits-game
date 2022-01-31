@@ -1,0 +1,29 @@
+.clock {
+    padding: .025em;
+    margin: .125em;
+    display: flex;
+    color: #00808099;
+    transition: color .125s;
+    border-radius: .25em;
+    border: .05em solid #282c34;
+    box-shadow: 
+        .05em .05em .05em #14161a,
+        -.05em -.05em .05em #3c424e,
+        inset .05em .05em .05em #14161a,
+        inset -.05em -.05em .05em #3c424e;
+}
+
+.clock.active { color: #ffa500cc; }
+
+.divider {
+    margin: 0 .075em;
+    width: .2em;
+    /* height: 1.6em; */
+    font-size: .75em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2b2f38;
+    box-shadow: .05em 0em .05em #14161a,
+                -.05em -0em .05em #3c424e;
+}

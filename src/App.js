@@ -12,6 +12,8 @@ function App() {
 
   const [modal, setModal] = useState(true);
 
+  const timerLimit = 20;
+  const [timers, setTimers] = useState({ my: timerLimit, opp: timerLimit });
   const [myGuess, setMyGuess] = useState([]);
   const [myRes, setMyRes] = useState([]);
   const [opGuess, setOpGuess] = useState([]);
@@ -22,10 +24,18 @@ function App() {
 
   useEffect( () => {
     if (mySecret) {
-      setIsMyTurn(false)
+      // setIsMyTurn(false);
+      // RAndom starting player: false = OP, true = ME
+      setIsMyTurn([false, true][Math.floor(Math.random() * 2)]);
       setModal(false);
+      setTimers({ my: timerLimit, opp: timerLimit });
     }
   }, [mySecret]);
+
+  useEffect(() => {
+    if (timers.my === 0) setMyWin(false);
+    if (timers.opp === 0) setMyWin(true);
+  }, [timers])
   
   useEffect(() => {
     if (myGuess.length) setIsMyTurn(false)
@@ -48,6 +58,10 @@ function App() {
       setMyWin(true);
     }
   }, [opRes]);
+
+  useEffect(() => {
+    if (myWin !== null) setIsMyTurn(null);
+  }, [myWin]);
 
   useEffect(() => {
     if (opGuess.length) {
@@ -93,10 +107,11 @@ function App() {
       myRes={ myRes }
       opGuess={ opGuess }
       opRes={ opRes }
-      isMyTurn= { isMyTurn }
-      restartGame= { restartGame }
-      myWin= { myWin }
-      setMyWin= { setMyWin }
+      isMyTurn={ isMyTurn }
+      restartGame={ restartGame }
+      myWin={ myWin }
+      // setMyWin= { setMyWin }
+      // setTimers={ setTimers }
     />
     
     {(isMyTurn!==null) && 

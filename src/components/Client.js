@@ -30,7 +30,7 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
   return (
     <div className="Client">
 
-        <Header/>
+        <Header isMyTurn={ isMyTurn }/>
 
         <Navbar
           chat= { appChat }

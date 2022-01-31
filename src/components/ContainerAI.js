@@ -37,13 +37,14 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
     }, [myGuess]);
 
     useEffect(() => {
+        const delayRnd = Math.floor(Math.random() * 2250) + 2000;
         if (isMyTurn === false 
             && myRes.slice(-1)[0] !== '44' 
             && myRes.length < 12) {
                 // console.log('Calculating OP Guess')
             const t = setTimeout(() => {
                 setOpGuess([...opGuess, calcNewGuess(opGuess, opRes)]);
-            }, 250); // 2500
+            }, delayRnd); // 2500 ? delayRnd ? 
         }
         return (t) => clearTimeout(t);
     }, [myRes]);
