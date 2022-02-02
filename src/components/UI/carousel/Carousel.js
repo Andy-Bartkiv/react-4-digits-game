@@ -2,8 +2,8 @@ import { useState } from 'react';
 import cls from './Carousel.module.css';
 import { BsCaretDownFill, BsCaretUpFill, BsCaretRightFill, BsCaretLeftFill } from "react-icons/bs";
 
-const Carousel = ({ dig, setDig, isHorizontal, cellCount, size }) => {
-   
+const Carousel = ({ dig, setDig, isHorizontal, cellCount, size, grey }) => {
+
     const cellSize = size * .99 * 2;
     const sizeStyle = { "--size-var": `${size}px` };
     const rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
@@ -18,7 +18,7 @@ const Carousel = ({ dig, setDig, isHorizontal, cellCount, size }) => {
     // Stlyling each individual cell
     const [cellsStyle, setCellsStyle] = useState( cells.map(cell => ({ 
         // background: `hsla(${cell*360/cellCount}, 100%, 50%, 0.99)`,
-        transform: `${rotateFn}(${cell*360/cellCount}deg) translateZ(${radius}px)`
+        transform: `${rotateFn}(${cell*360/cellCount}deg) translateZ(${radius}px)`,
         })
     ));
     // Styling cells carousel
@@ -79,6 +79,7 @@ const Carousel = ({ dig, setDig, isHorizontal, cellCount, size }) => {
                                 // background: cellsStyle[i].background,
                                 transform: cellsStyle[cell].transform,
                                 visibility: (visibleCells.includes(cell)) ? 'visible' : 'hidden',
+                                color: (grey && cell === dig) ? '#282c34' : '#00808099',
                             }}
                         >
                             <span>{ cell }</span>
@@ -96,7 +97,8 @@ const Carousel = ({ dig, setDig, isHorizontal, cellCount, size }) => {
 Carousel.defaultProps = {
     isHorizontal: false,
     cellCount: 10,
-    size: 50, 
+    size: 50,
+    grey: false,
 }
 
 export default Carousel;

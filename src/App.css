@@ -241,13 +241,17 @@ body {
               -.05em -.05em .05em #3c424e;
   transition: .25s;
 }
+.input-button.disabled { 
+  cursor: default;   
+  box-shadow: .05em .05em .05em #14161a,
+              -.05em -.05em .05em #3c424e;}
 .input-button:active:not(.disabled) {
   box-shadow: inset .1em .1em .1em #14161a,
               inset -.1em -.1em .1em #3c424e;
 }
 .input-button:hover:not(.disabled) { color: teal; }
 .input-button > svg { 
-  transition: .25s;
+  transition: scale 0s all .25s;
   font-size: 1.5em; transform: rotate(-90deg);
   filter: drop-shadow( -.05em -.05em .05em #14161a)
           drop-shadow( .05em .05em .05em #3c424e);
@@ -367,7 +371,9 @@ body {
   display: flex;
   gap: .25em;
 }
-
+.secret-select-text.bottom-hint {
+  top:auto; bottom:0; font-size: .85em;
+}
 /* ///////////// CLIENT CHAT WINDOW */
 /* .client-chat { } */
 .chat-input-form {

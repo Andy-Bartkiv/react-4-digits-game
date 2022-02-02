@@ -1,6 +1,6 @@
 import cls from './MyModal.module.css'
 
-const MyModal = ({ children, visible, setVisible }) => {
+const MyModal = ({ children, visible }) => {
 	const rootClasses = (!visible)
 		? [cls.my_modal]
 		: [cls.my_modal, cls.active]
@@ -8,9 +8,7 @@ const MyModal = ({ children, visible, setVisible }) => {
         <>
         <div className={ cls.modal_blinder }></div>
 
-        <div className = {rootClasses.join(' ')}
-			// onClick = { () => setVisible(false) }
-        >   
+        <div className = {rootClasses.join(' ')}>   
             <div className={ cls.modal_wrap }>
                 <div className={ cls.modal_content }
                     onClick = { (e) => e.stopPropagation() }

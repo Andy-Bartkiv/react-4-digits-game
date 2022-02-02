@@ -46,7 +46,7 @@ function App() {
     if (myGuess.length) setIsMyTurn(false)
   }, [myGuess]);
 
-  // CHECK WINING CONDITION 
+  // CHECK WINNING CONDITION 
   useEffect(() => {
     if (myRes.length && myRes.slice(-1)[0] === '44') {
       setMyWin(true);
@@ -92,17 +92,14 @@ function App() {
 ////////////////////////////// RENDER /////////////////////////////
   return (
     <>
-    <MyModal
-      visible = { modal }
-      // setVisible = { setModal }
-    >
+    <MyModal visible = { modal }>
       <SecretSelectText/>
-      
       <Input4D 
         input={ uniqRndStr('0123456789') } 
         setInput={ (val) => setMySecret(val.slice(-1)[0]) } 
-        uniqDigits={ true }
-        isMyTurn={ modal }/>
+        uniqDigitsMandatory={ true }
+        isMyTurn={ modal }
+      />
     </MyModal>
 
     {/* {(isMyTurn!==null) &&  */}
