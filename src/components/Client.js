@@ -10,7 +10,7 @@ import CheatSheet from './CheatSheet';
 import CongratText from './CongratText';
 import { useEffect, useState } from 'react';
 
-function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame, myWin }) {
+function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame, myWin, msgArr, setMsgArr }) {
 
   const opNumber = (myWin) ? myGuess[myRes.length-1] : '????';
 
@@ -38,6 +38,7 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
           restartGame={ restartGame } 
           cheatSheet= { chSh }
           toggleCheatSheet={ ()=>setChSh(!chSh) }
+          msgArr={ msgArr }
         />
 
         <DevCheatSheet guess={ myGuess } res={ myRes } />
@@ -45,7 +46,7 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
         <div className='Client-output'>
 
             <div className={(appChat) ? "output-flip is-flipped-l" : "output-flip" }>
-              <ChatTab/>
+              <ChatTab msgArr={ msgArr } setMsgArr={ setMsgArr }/>
               <OutputList guess={ myGuess } res={ myRes } num={ mySecret }/> 
             </div>
 

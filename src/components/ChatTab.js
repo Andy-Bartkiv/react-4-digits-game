@@ -1,20 +1,10 @@
-import NumPlates from "./NumPlates";
-import Plate from "./UI/plate/Plate";
-import MyInput from "./UI/input/MyInput";
-import MyButton from "./UI/button/MyButton";
 import MsgList from "./MsgList";
 import { MdSend } from 'react-icons/md';
 import { useState, useEffect } from "react";
 
-const ChatTab = () => {
+const ChatTab = ({ msgArr, setMsgArr }) => {
 
     const [textInput, setTextInput] = useState('');
-    const [msgArr, setMsgArr] = useState([
-        { id: '1111', author: 'Me', text: 'Hello AI!' },
-        { id: '2222', author: 'AI', text: 'Greetings, master!' },
-        { id: '3333', author: 'Me', text: 'How are you today?' },
-        { id: '4444',author: 'AI', text: 'Awesome!' },
-    ]);
 
     const handleSubmit = (event) => {
         event.preventDefault();

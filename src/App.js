@@ -10,6 +10,11 @@ import SecretSelectText from './components/SecretSelectText';
 
 function App() {
 
+  const [msgArr, setMsgArr] = useState([
+    { id: '1111', author: 'Me', text: 'Hello AI!' },
+  ]);
+
+
   const [modal, setModal] = useState(true);
 
   const timerLimit = 20;
@@ -100,6 +105,7 @@ function App() {
         isMyTurn={ modal }/>
     </MyModal>
 
+    {/* {(isMyTurn!==null) &&  */}
     <Client
       mySecret= { mySecret }
       myGuess={ myGuess }
@@ -112,7 +118,10 @@ function App() {
       myWin={ myWin }
       // setMyWin= { setMyWin }
       // setTimers={ setTimers }
+      msgArr={ msgArr }
+      setMsgArr={ setMsgArr }
     />
+    {/* } */}
     
     {(isMyTurn!==null) && 
     <ContainerAI
@@ -126,7 +135,10 @@ function App() {
       // myWin= { myWin }
       // setMyWin= { setMyWin }
       // setIsMyTurn= { setIsMyTurn }
+      msgArr={ msgArr }
+      setMsgArr={ setMsgArr }
     />}
+
     </>
   );
 }

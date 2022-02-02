@@ -6,7 +6,7 @@ const Header = ({ isMyTurn }) => {
 
     const [activeTimer, setActiveTimer] = useState({my: false, opp: false});
     useEffect(() => {
-        console.log('inside HEADER', isMyTurn)
+        // console.log('inside HEADER', isMyTurn)
         let newAT = {};
         if (isMyTurn === null)
             newAT = {my: false, opp: false}

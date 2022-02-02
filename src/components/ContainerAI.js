@@ -2,7 +2,23 @@ import { useState, useEffect } from "react";
 import { rndStr, uniqRndStr } from "../utils/rndMethods";
 import calcDigitMatch from "../utils/calcDigitMatch";
 
-const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, opRes, myWin }) => {
+function textMsgChatAI(turn) {
+    const poolOfTextMsgs = {
+        1: ['Greetings, master!', 'Hello, friend!', 'Hi there!'],
+        2: ['How are you today?', 'How are things?', "What's up?"],
+        6: ['Good algorithm can brake any code in seven turns.', 
+            "It is proved that any number can be solved within seven turns."]
+    }
+    const rndMsg = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    return {
+        id: Date.now(),
+        author: 'AI',
+        text: rndMsg(poolOfTextMsgs[turn])
+    }
+}
+
+const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, opRes, myWin, msgArr, setMsgArr }) => {
     
     const [opSecret, setOpSecret] = useState(null);
 
@@ -20,8 +36,8 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
     }
     
     useEffect( () => {
-        // setOpSecret(uniqRndStr('0123456789'));
-        setOpSecret('1234');
+        setOpSecret(uniqRndStr('0123456789'));
+        // setOpSecret('1234');
     }, []);
 
     useEffect( () => console.log('ContainerAI number =', opSecret), [opSecret]);
@@ -31,7 +47,7 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
             const t = setTimeout(() => {
                 const newRes = calcDigitMatch(myGuess[myGuess.length-1], opSecret);
                 setMyRes([...myRes, newRes]);
-            }, 75); // 750        
+            }, 75); // 750
         }
         return (t) => clearTimeout(t);
     }, [myGuess]);
@@ -48,6 +64,19 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
         }
         return (t) => clearTimeout(t);
     }, [myRes]);
+
+// CHATTING
+    useEffect(() => {
+        const delayRnd = Math.floor(Math.random() * 1250) + 1000;
+        if (opGuess.length && isMyTurn !== null) {
+            const t = setTimeout(() => {
+                if ([1,2,6].includes(opGuess.length))
+                    setMsgArr([...msgArr, textMsgChatAI(opGuess.length)]);
+            }, delayRnd); // 750
+        }
+      return (t) => clearTimeout(t)
+    }, [opGuess]);
+    
     
     return null;
 }

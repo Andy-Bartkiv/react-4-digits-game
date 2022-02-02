@@ -144,8 +144,13 @@ const DevCheatSheet = ({ guess, res }) => {
                     .map(pos => (newPos[pos][d] === '-') ? '' : pos)
                     .join('') || '-'
                 )
-            console.table(gridDig);
-    // calc digits that are ABSENT and if their number is 6 then get 4 Present digits
+
+
+
+            // console.table(gridDig);
+    
+    
+            // calc digits that are ABSENT and if their number is 6 then get 4 Present digits
             const digAbsent = gridDig
                 .map((d, i) => (d === '-') ? i : -1)
                 .filter(p => p >= 0);

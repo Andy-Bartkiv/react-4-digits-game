@@ -265,9 +265,13 @@ body {
 
 .congrat-text {
   position: absolute;
-  bottom:0;
-  left: calc(50vw - min(31vh, 50vw));
-  height: 10rem;
+  /* bottom: 0; */
+  /* bottom: 4rem; */
+  /* bottom: min(17vh, 4rem); */
+  top: 80vh;
+  /* left: calc(50vw - min(31vh, 50vw)); */
+  /* height: 10rem; */
+  /* height: calc(.5*min(62vh, 100vw)); */
   width: min(62vh, 100vw);
   display: flex;
   justify-content: center;
@@ -414,7 +418,8 @@ body {
 }
 
 .chat-msg-list {
-  font-size: calc(.04*min(62vh, 100vw));
+  /* font-size: calc(.04*min(62vh, 100vw)); */
+  font-size: .85rem;
   /* font-family: 'Roboto Mono', monospace; */
   font-size: .75em;
   display: flex;
@@ -423,10 +428,10 @@ body {
   padding: 0 .125em;
 }
 .chat-msg-text {
-  --grad-deg: 90deg;
   overflow-wrap: break-word;
   padding: .125em .25em;
   width: 85%;
+  min-height: 1.25em;
   border-radius: .25em;
   background-color: #0882;
   box-shadow: .05em .05em .05em #14161a,
@@ -437,14 +442,12 @@ body {
 .chat-msg-text.my {
   /* color: #7bb; */
   color: teal;
-  --grad-deg: 90deg;
   text-align: left;
   align-self: flex-start;
 }
 .chat-msg-text.opp {
   /* color: teal; */
   color: #7bb;
-  --grad-deg: -90deg;
   text-align: right;
   align-self: flex-end;
 }
