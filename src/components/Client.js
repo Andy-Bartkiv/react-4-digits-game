@@ -56,9 +56,9 @@ function Client({ openMM, mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, 
             </div>
         </div>
 
-        <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/>
+        {/* <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/> */}
 
-        {/* <Input input={ myGuess } setInput={ setMyGuess }/> */}
+        <Input input={ myGuess } setInput={ setMyGuess }/>
 
         <CongratText win={ myWin }/>
 

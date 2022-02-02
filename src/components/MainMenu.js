@@ -9,7 +9,7 @@ const MainMenu = ({ closeMM }) => {
     return (
         <div className='main-menu'>
 
-            <div className='secret-select-word'>
+            <div className='secret-select-word' style={{ color:'#ffa50099' }}>
                 { text1.split('').map((e, i) => <Plate key={i} char={ e }/> )}
             </div>
 
