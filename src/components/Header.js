@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Clock from "./UI/clock/Clock";
 import CountDown from "./UI/countDown/CountDown";
 
-const Header = ({ isMyTurn }) => {
+const Header = ({ openMM, isMyTurn }) => {
 
     const [activeTimer, setActiveTimer] = useState({my: false, opp: false});
     useEffect(() => {
@@ -22,7 +22,7 @@ const Header = ({ isMyTurn }) => {
             
             <CountDown isActive={ activeTimer.my }/>
 
-            <div className="header-clock">
+            <div className="header-clock" onClick={ () => openMM() } style={{ cursor:'pointer' }}>
                 <Clock/>
             </div>
 

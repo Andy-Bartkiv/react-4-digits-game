@@ -4,7 +4,6 @@ const SecretSelectText = () => {
 
     const text = 'Pick your Secret Number'.toLocaleUpperCase();
 
-
     return (
         <div className='secret-select-text'>
           {text.split(' ').map((word, iW) => 

@@ -10,7 +10,7 @@ import CheatSheet from './CheatSheet';
 import CongratText from './CongratText';
 import { useEffect, useState } from 'react';
 
-function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame, myWin, msgArr, setMsgArr }) {
+function Client({ openMM, mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame, myWin, msgArr, setMsgArr }) {
 
   const opNumber = (myWin) ? myGuess[myRes.length-1] : '????';
 
@@ -30,7 +30,7 @@ function Client({ mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn
   return (
     <div className="Client">
 
-        <Header isMyTurn={ isMyTurn }/>
+        <Header isMyTurn={ isMyTurn } openMM={ openMM }/>
 
         <Navbar
           chat= { appChat }
