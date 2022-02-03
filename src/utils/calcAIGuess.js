@@ -58,7 +58,7 @@ function calcAIGuess(position, digPresent, guess) {
         rndNumber = rndElement(arrValidGuesses);
         rndNoPresent = rndElement(arrVGnoPresent);
     }
-    return [rndNumber, rndNoPresent]
+    return [rndNumber, rndNoPresent, arrValidGuesses.length, arrVGnoPresent.length]
 }
 
 export { calcAIGuess }

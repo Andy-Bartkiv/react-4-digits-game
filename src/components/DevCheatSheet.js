@@ -5,7 +5,8 @@ import { calcAIGuess } from "../utils/calcAIGuess";
 import { 
     updPostionAfterGuess, 
     updAbsentPresentByNewPosition, 
-    updAbsentPresentByPreviousGuesses,
+    updAbsentAndPositionByPreviousGuesses,
+    updPresentByPreviousGuesses,
     updPositionByOnlyPresent,
     updPositionByPresentLastPos,
     updPositionByPrevGuessesAndAP,
@@ -35,30 +36,33 @@ const DevCheatSheet = ({ guess, res }) => {
 // +++ POSITION
             newPos = updPostionAfterGuess(position, guess, res);
 
-// ANALYSE Previous Guesses to update PRESENT and ABSENT
-            const updAPBPG = 
-                updAbsentPresentByPreviousGuesses(newPos, newDigPresent, newDigAbsent, guess, res);
-            [newDigAbsent, newDigPresent] = [...updAPBPG];
+// --- ANALYSE Previous Guesses to update Position, PRESENT and ABSENT
+            const updAAPBPG = 
+                updAbsentAndPositionByPreviousGuesses(newPos,newDigAbsent, guess, res);
+            [newDigAbsent, newPos] = [...updAAPBPG];
+            const updPBPG = 
+                updPresentByPreviousGuesses(newDigPresent, guess, res);
+            newDigPresent = [...updPBPG]
 
-// ANALYSE POSITIONS GRID to update ABSENT and PRESENT
+// +++ ANALYSE POSITIONS GRID to update ABSENT and PRESENT
             const updAPBNP = 
                 updAbsentPresentByNewPosition(newPos, newDigPresent, newDigAbsent, guess, res);
             [newDigAbsent, newDigPresent] = [...updAPBNP];
 
-// UPDATE POSITIONS GRID based on Only PRESENT array
+// +++ UPDATE POSITIONS GRID based on Only PRESENT array
             newPos = updPositionByOnlyPresent(newPos, newDigPresent);
 
-// update newPos and PRESENT by revising Prev Guesses considering PRESENT and ABSENT
+// --- update newPos and PRESENT by revising Prev Guesses considering PRESENT and ABSENT
             newPos = updPositionByPrevGuessesAndAP(newPos, newDigPresent, guess, res);
             newDigPresent = [...updPresentByPrevGuessesAndAP(newDigPresent, newDigAbsent, guess, res)]
 
-// recalculate newPos if any digPresent has only 1 legal position
+// +++ recalculate newPos if any digPresent has only 1 legal position
             newPos = updPositionByPresentLastPos(newPos, newDigPresent);
 
 
 // CLACULATE AVAILABLE GUESSES
-            const [rndNumber, rndNoPresent] = calcAIGuess(newPos, newDigPresent, guess);
-            console.log(rndNumber, rndNoPresent)
+            const [rndNumber, rndNoPresent, l1, l2] = calcAIGuess(newPos, newDigPresent, guess);
+            console.log(rndNumber, rndNoPresent, l1,l2)
             console.log('ABSENT-', newDigAbsent);
             console.log('PRESENT', newDigPresent);
             // console.table(newPos);   
@@ -66,11 +70,11 @@ const DevCheatSheet = ({ guess, res }) => {
             setDigAbsent(newDigAbsent);
             setPosition(newPos);
 
-                        // 7928 - 5246 - 1345 - 1335 - 1331 - 1802 - 1230 ERROR (2,4) Absent , (0) Present
-
+            // 7928 - 5246 - 1345 - 1335 - 1331 - 1802 - 1230 ERROR (2,4) Absent , (0) Present
             // Other potentially breaking combos:
             // 0101 - 2323 - 4545 - 1054 - 1052 - 3052
-                             // 9012 - 8764 - 3535 - 2809 - 3125 - 1930
+            
+                    // 9012 - 8764 - 3535 - 2809 - 3125 - 1930
 
         } else {
             setDigPresent([]);

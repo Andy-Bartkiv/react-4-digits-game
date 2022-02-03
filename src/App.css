@@ -328,7 +328,7 @@ body {
   color: wheat;
       /* overflow: hidden; */
 
-      /* display: none; */
+      display: none;
 }
   .ch-sh-wrap.right {
     left: auto; right: 0;

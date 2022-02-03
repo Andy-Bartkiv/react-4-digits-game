@@ -56,16 +56,13 @@ function updAbsentPresentByNewPosition(position, digPresent, digAbsent, guess, r
 // if you have all 4 Digits Present -> outstanding 6 digits move to absent
     if (newDigPresent.length === 4)
         newDigAbsent = [...TEN_DIG.filter(d => !newDigPresent.includes(d))];
-    // console.log(newDigAbsent, newDigPresent);
     return [newDigAbsent, newDigPresent];
 }
 
 
-// update ABSENT and PRESENT arrays based on Position Array
-function updAbsentPresentByPreviousGuesses(position, digPresent, digAbsent, guess, res) {
+// update PRESENT array based on Previous Guesses
+function updPresentByPreviousGuesses(digPresent, guess, res) {
     let newDigPresent = [...digPresent];
-    let newDigAbsent = [...digAbsent];
-    const newPos = [...position].map(row => [...row]);
     let digCnt = 0;
     let lastIndex = res.length - 1;
     let collection = [];
@@ -75,24 +72,54 @@ function updAbsentPresentByPreviousGuesses(position, digPresent, digAbsent, gues
         let thisGuess = guess[lastIndex].split('').map(d => Number(d));
         let thisRes = res[lastIndex].split('').map(d => Number(d));
         const thisCol = keepOnlyUniqDigits(thisGuess);
-    // console.log('START', digCnt, thisRes, thisGuess, thisCol);
-    // console.log(collection, outOfCol);
         if (thisCol.some(item => !collection.includes(item))) {
             let maxRes0 = thisRes[0];
-            thisCol.forEach(d => {
-                if (!collection.includes(d)) {
+            thisCol
+                .filter(d => !collection.includes(d))
+                .forEach(d => {
                     collection.push(d);
-                    // if (!digAbsent.includes(d)) {
-                        digCnt += (maxRes0 > 0) ? 1 : 0;
-                        maxRes0--;
-                    // }
-                    }
+                    digCnt += (maxRes0 > 0) ? 1 : 0;
+                    maxRes0--;
                 })
-            // console.log('Inside IF', thisCol, digCnt);
             outOfCol = outOfCol.filter(d => !collection.includes(d));
             }
         lastIndex--;
-        // console.log('END of WHILE', lastIndex, 'd:', digCnt, collection, outOfCol);
+    }
+// If obvious that all outOfCol -PRESENT
+    if (digCnt < 5 && digCnt === 4 - outOfCol.length) {
+            newDigPresent.push(...outOfCol);
+            newDigPresent = keepOnlyUniqDigits(newDigPresent);
+        }
+    return newDigPresent;
+}
+
+
+// update ABSENT and Position based on Previous Guesses
+function updAbsentAndPositionByPreviousGuesses(position, digAbsent, guess, res) {
+    let newDigAbsent = [...digAbsent];
+    const newPos = [...position].map(row => [...row]);
+    let digCnt = 0;
+    let lastIndex = res.length - 1;
+    let collection = [];
+    let outOfCol = [...Array(10).keys()];
+
+    while (digCnt < 4 && lastIndex >= 0) {
+        const thisGuess = guess[lastIndex].split('').map(d => Number(d));
+        const thisRes = res[lastIndex].split('').map(d => Number(d));
+        const thisCol = keepOnlyUniqDigits(thisGuess);
+        if (thisCol.some(item => !collection.includes(item))) {
+            const tmp = thisCol.filter(d => collection.includes(d));
+            let maxRes0 = thisRes[0] - tmp.length;
+            thisCol
+                .filter(d => !collection.includes(d))
+                .forEach(d => {
+                    collection.push(d);
+                    digCnt += (maxRes0 > 0) ? 1 : 0;
+                    maxRes0--;
+                })
+            outOfCol = outOfCol.filter(d => !collection.includes(d));
+            }
+        lastIndex--;
     }
 // If you already have all 4 numbers Make all outOfCol -ABSENT
     if (digCnt === 4 && outOfCol.length > 0 && outOfCol.length < 5 ) {
@@ -102,15 +129,7 @@ function updAbsentPresentByPreviousGuesses(position, digPresent, digAbsent, gues
         });
         newDigAbsent = keepOnlyUniqDigits(newDigAbsent);
     }
-// If obvious that all outOfCol -PRESENT
-    if (digCnt < 5 && digCnt === 4 - outOfCol.length) {
-            // console.log('im in', digCnt, 4 - outOfCol.length);
-            // console.log(outOfCol);
-            newDigPresent.push(...outOfCol);
-            newDigPresent = keepOnlyUniqDigits(newDigPresent);
-        }
-    console.log(newDigAbsent, newDigPresent);
-    return [newDigAbsent, newDigPresent];
+    return [newDigAbsent, newPos];
 }
 
 
@@ -133,7 +152,6 @@ function updPositionByOnlyPresent(position, digPresent) {
         newPos
             .map(pos => pos.slice(0, -1).filter(p => p === ' '))
             .findIndex(pos => pos.length === 1)
-    // console.log(lastDigAtPos());
 // updating newPos up to 4 times based on lastDigPos
     for (let c of '1234')
         updateRowNCol(lastDigAtPos());
@@ -141,15 +159,7 @@ function updPositionByOnlyPresent(position, digPresent) {
         if (lastDig >= 0) {
             const row = lastDigAtPos();
             const d = newPos[row].indexOf(' ');
-// THERE is SOME BUG TypeError: Cannot read properties of undefined (reading '3') at updateRowNCol (DevCheatSheet.js:179:1) 
-// 0101, 2323, 4545, 1054, 1052, 3052
-            // TEN_DIG.forEach(td => {
-            //     console.log('bingo per digits', row, d, td)
-            //     newPos[row][td] = (td === d) ? 'O' : '-';
-            //     if (td === d) newDigPresent.push(td);
-            // })
             [0,1,2,3].forEach(r => {
-                // console.log('bingo per rows')
                 newPos[r][d] = (r === row) ? 'O' : '-'
                 newPos[r][10] = (r === row) ? d : newPos[r][10]
                 if (r === row && !newDigPresent.includes(d)) 
@@ -174,13 +184,10 @@ function updPositionByPresentLastPos(position, digPresent) {
     const lastPosForDig = () =>
         digPresent.filter(d => 
             (gridDig[d].length === 1 && gridDig[d] !== '-')) 
-    // console.log('LPFD', lastPosForDig());
     for (let c of '1234')
         updateColumn(lastPosForDig());
     function updateColumn(lastPos) {
-        // console.log('last pos for Present');
         lastPos.forEach(lp => {
-            // console.log(lp, gridDig[lp]);
             const pos = gridDig[lp] * 1;
             [0,1,2,3].forEach(row => newPos[row][lp] = (row === pos) ? 'O' : '-')
             TEN_DIG.forEach(td => newPos[pos][td] = (td === lp) ? 'O' : '-');
@@ -194,9 +201,7 @@ function updPositionByPresentLastPos(position, digPresent) {
 function updPositionByPrevGuessesAndAP(position, digPresent, guess, res) {
     let newDigPresent = [...digPresent];
     const newPos = [...position].map(row => [...row]);
-    // PRESENT
     if (newDigPresent.length > 0) {
-        // console.log('REVISION on PRESENT', newDigPresent);
         const updGuess = guess.map(g => {
             newDigPresent.forEach(d => {
                 const re = new RegExp(d, "g");
@@ -214,21 +219,18 @@ function updPositionByPrevGuessesAndAP(position, digPresent, guess, res) {
         });
     // update newPos 
         updRes.forEach((r, i) => {
-            if (Number(r[0]) === 0) {                 // -00 = no digit guessed
+            if (Number(r[0]) === 0) {          // -00 = no digit guessed
                 keepOnlyUniqDigits(updGuess[i]).forEach(d =>
                     [0,1,2,3].forEach(pos =>
                         newPos[pos][d] = '-'));
-            }
-        })
+        }})
     }
     return newPos;
 }
 // update Present by revising Prev Guesses considering PRESENT and ABSENT
 function updPresentByPrevGuessesAndAP(digPresent, digAbsent, guess, res) {
     let newDigPresent = [...digPresent];
-    // ABSENT
         if (digAbsent.length > 0) {
-            // console.log('REVISION on ABSENT', digAbsent);
             const updGuess = guess.map(g => {
                 digAbsent.forEach(d => {
                     const re = new RegExp(d, "g");
@@ -242,7 +244,6 @@ function updPresentByPrevGuessesAndAP(digPresent, digAbsent, guess, res) {
                     if (!newDigPresent.includes(newItemToNDP))
                         newDigPresent.push(newItemToNDP);
             })
-            // console.log(newDigPresent);
         };
     return newDigPresent;
 }
@@ -250,7 +251,8 @@ function updPresentByPrevGuessesAndAP(digPresent, digAbsent, guess, res) {
 export { 
     updPostionAfterGuess, 
     updAbsentPresentByNewPosition, 
-    updAbsentPresentByPreviousGuesses,
+    updAbsentAndPositionByPreviousGuesses,
+    updPresentByPreviousGuesses,
     updPositionByOnlyPresent,
     updPositionByPresentLastPos,
     updPositionByPrevGuessesAndAP,
