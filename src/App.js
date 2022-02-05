@@ -14,7 +14,7 @@ function App() {
   const [showMainMenu, setShowMainMenu] = useState(false);
   const [modal, setModal] = useState(true);
   
-  const timerLimit = 20;
+  const timerLimit = 300;  // Fix bug at 5 sec
   const [timers, setTimers] = useState({ my: timerLimit, opp: timerLimit });
   const [myGuess, setMyGuess] = useState([]);
   const [myRes, setMyRes] = useState([]);
@@ -42,11 +42,6 @@ function App() {
   }, [mySecret]);
 
   useEffect(() => {
-    if (timers.my === 0) setMyWin(false);
-    if (timers.opp === 0) setMyWin(true);
-  }, [timers])
-  
-  useEffect(() => {
     if (myGuess.length) setIsMyTurn(false)
   }, [myGuess]);
 
@@ -69,6 +64,11 @@ function App() {
   }, [opRes]);
 
   useEffect(() => {
+    if (timers.my === 0) setMyWin(false);
+    if (timers.opp === 0) setMyWin(true);
+  }, [timers]);
+
+  useEffect(() => {
     if (myWin !== null) setIsMyTurn(null);
   }, [myWin]);
 
@@ -77,7 +77,7 @@ function App() {
       setTimeout(() => {
         const newRes = calcDigitMatch(opGuess[opGuess.length-1], mySecret)
         setOpRes([...opRes, newRes]);
-      }, 75); // 750
+      }, 500); // 750
      }
   }, [opGuess]);
 
@@ -90,7 +90,10 @@ function App() {
       setMySecret(null);
       setModal(true);
       setMsgArr([]);
-      setTimeout( () => setMyWin(null), 500);
+      setTimeout( () => {
+        setMyWin(null)
+        setTimers({ my: timerLimit, opp: timerLimit });
+      }, 500);
     }
   }
 
@@ -124,7 +127,8 @@ function App() {
           restartGame={ restartGame }
           myWin={ myWin }
           // setMyWin= { setMyWin }
-          // setTimers={ setTimers }
+          timers={ timers }
+          setTimers={ setTimers }
           msgArr={ msgArr }
           setMsgArr={ setMsgArr }
         />
@@ -144,7 +148,8 @@ function App() {
           // setIsMyTurn= { setIsMyTurn }
           msgArr={ msgArr }
           setMsgArr={ setMsgArr }
-        />}
+        />
+        }
       </> 
     }
    </>

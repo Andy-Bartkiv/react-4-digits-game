@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&family=Roboto+Mono&display=swap');
 * {
 	margin: 0;  padding: 0;
   box-sizing: border-box;
@@ -86,6 +86,16 @@ body {
   .header-clock {
     font-size: 1rem;
   }
+
+  .header-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: .75em;
+    font-style: italic;
+    transform: scale(3, 2.5) translateY(-7.5%);
+    color: #ffa500bb;
+  }
+
+
 /* //////////// NAVBAR ////////////// */
 .Client-navbar {
   list-style-type: none;

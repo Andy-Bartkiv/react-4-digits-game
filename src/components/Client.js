@@ -10,18 +10,35 @@ import CheatSheet from './CheatSheet';
 import CongratText from './CongratText';
 import { useEffect, useState } from 'react';
 
-function Client({ openMM, mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, isMyTurn, restartGame, myWin, msgArr, setMsgArr }) {
+function Client({ 
+  openMM, 
+  mySecret, 
+  myGuess, 
+  setMyGuess, 
+  myRes, 
+  opGuess, 
+  opRes, 
+  isMyTurn, 
+  restartGame, 
+  myWin, 
+  msgArr, 
+  setMsgArr,
+  timers,
+  setTimers
+}) {
 
   const opNumber = (myWin) ? myGuess[myRes.length-1] : '????';
 
-  const [chSh, setChSh] = useState(false);
+  const [showChSh, setShowChSh] = useState(false);
+  const [keyChSh, setKeyChSh] = useState(Date.now());
   const [appChat, setAppChat] = useState(false);
 
   useEffect(() => {
     if (isMyTurn === null) {
       setTimeout(() => {
         setAppChat(false);
-        setChSh(false);
+        setShowChSh(false);
+        setKeyChSh(Date.now());
       }, 500)
     } 
   }, [isMyTurn]);
@@ -30,18 +47,21 @@ function Client({ openMM, mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, 
   return (
     <div className="Client">
 
-        <Header isMyTurn={ isMyTurn } openMM={ openMM }/>
-
-        <Navbar
-          chat= { appChat }
-          toggleChat={ ()=>setAppChat(!appChat) } 
-          restartGame={ restartGame } 
-          cheatSheet= { chSh }
-          toggleCheatSheet={ ()=>setChSh(!chSh) }
-          msgArr={ msgArr }
+        <Header 
+          isMyTurn={ isMyTurn } 
+          openMM={ openMM } 
+          timers={ timers } 
+          setTimers={ setTimers }
         />
 
-        {/* <DevCheatSheet guess={ myGuess } res={ myRes } /> */}
+        <Navbar
+          chat={ appChat }
+          toggleChat={ ()=>setAppChat(!appChat) } 
+          restartGame={ restartGame } 
+          cheatSheet= { showChSh }
+          toggleCheatSheet={ ()=>setShowChSh(!showChSh) }
+          msgArr={ msgArr }
+        />
 
         <div className='Client-output'>
 
@@ -50,8 +70,8 @@ function Client({ openMM, mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, 
               <OutputList guess={ myGuess } res={ myRes } num={ mySecret }/> 
             </div>
 
-            <div className={(chSh) ? "output-flip is-flipped-r" : "output-flip" }>
-              <CheatSheet guess={ myGuess } res={ myRes }/>
+            <div className={(showChSh) ? "output-flip is-flipped-r" : "output-flip" }>
+              <CheatSheet guess={ myGuess } res={ myRes } key={ keyChSh }/>
               <OutputList guess={ opGuess } res={ opRes } num={ opNumber } opponent={ true }/>
             </div>
         </div>

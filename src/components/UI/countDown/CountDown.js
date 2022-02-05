@@ -10,7 +10,7 @@ const getTimeArr = (ts) => [
     ts
 ];
 
-const CountDown = ({ timerSec = 150, isActive }) => {
+const CountDown = ({ timerSec = 150, setOutOfTime, isActive }) => {
 
     const rem = .05*Math.min(.62*window.innerHeight, window.innerWidth);
     const fontSize = .75 * rem;
@@ -25,6 +25,10 @@ const CountDown = ({ timerSec = 150, isActive }) => {
         else clearInterval(timerID);
         return () => clearInterval(timerID);
 	}, [isActive]);
+
+    useEffect(() => {
+        if (time <= 0) setOutOfTime(true);
+    },[time]);
    
 	return (
     	<div className = { (isActive) ? [cls.clock, cls.active].join(' ') : cls.clock }

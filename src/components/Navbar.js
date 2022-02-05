@@ -10,7 +10,9 @@ const Navbar = ({ chat, toggleChat, restartGame, cheatSheet, toggleCheatSheet, m
         const len = msgArr.length;
         if (len && msgArr[len-1].author === 'AI')
             setMsgCnt(true);
-    }, [msgArr])
+        else 
+            setMsgCnt(false);
+    }, [msgArr]);
 
     function handleChatClick() {
         setMsgCnt(false); 
