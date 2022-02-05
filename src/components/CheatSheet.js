@@ -1,4 +1,3 @@
-import NumPlates from "./NumPlates";
 import Plate from "./UI/plate/Plate";
 import PlateActive from "./UI/plateActive/PlateActive";
 import { useState, useEffect } from "react";
@@ -11,7 +10,7 @@ import {
     updPositionByPresentLastPos,
     updPositionByPrevGuessesAndAP,
     updPresentByPrevGuessesAndAP
-} from "../utils/chShMethods"
+} from "../utils/chShMethods";
 
 const CheatSheet = ({ guess, res }) => {
 
@@ -19,7 +18,7 @@ const CheatSheet = ({ guess, res }) => {
 
     const createArray11x4 = () => {
         const initPos = Array(4).fill(null).map(() => [...Array(11).fill(' ')]);
-        initPos.forEach((row, i) => row[row.length-1] = 'ABCD'[i]);
+        initPos.forEach((row, i) => row[row.length-1] = '????'[i]);
         return initPos;
     }
     const [position, setPosition] = useState(createArray11x4());
@@ -39,7 +38,7 @@ const CheatSheet = ({ guess, res }) => {
             [newDigAbsent, newPos] = [...updAAPBPG];
             const updPBPG = 
                 updPresentByPreviousGuesses(newDigPresent, guess, res);
-            newDigPresent = [...updPBPG]
+            newDigPresent = [...updPBPG];
 // +++ ANALYSE POSITIONS GRID to update ABSENT and PRESENT
             const updAPBNP = 
                 updAbsentPresentByNewPosition(newPos, newDigPresent, newDigAbsent, guess, res);
@@ -51,9 +50,7 @@ const CheatSheet = ({ guess, res }) => {
             newDigPresent = [...updPresentByPrevGuessesAndAP(newDigPresent, newDigAbsent, guess, res)]
 // +++ recalculate newPos if any digPresent has only 1 legal position
             newPos = updPositionByPresentLastPos(newPos, newDigPresent);
-            // console.log('ABSENT-', newDigAbsent);
-            // console.log('PRESENT', newDigPresent);
-            // console.table(newPos);   
+  
             setDigPresent(newDigPresent);
             setDigAbsent(newDigAbsent);
             setPosition(newPos);
@@ -73,7 +70,9 @@ const CheatSheet = ({ guess, res }) => {
 
             <div className="cheat-sheet-table">
                 <div className="table-plates">
-                    {'0123456789='.split('').map((e, i) => <PlateActive key={i} char={ e }/>)}
+                    { '0123456789='.split('').map((e, i) => 
+                        <PlateActive key={i} char={ e }/>)
+                    }
                 </div>
                 { position.map((pos, iP) =>
                     <div key={iP+100} className="table-plates">
@@ -85,4 +84,4 @@ const CheatSheet = ({ guess, res }) => {
     )
 }
 
-export default CheatSheet
+export default CheatSheet;

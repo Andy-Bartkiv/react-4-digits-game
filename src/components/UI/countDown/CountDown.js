@@ -10,7 +10,7 @@ const getTimeArr = (ts) => [
     ts
 ];
 
-const CountDown = ({ timerSec = 120, isActive }) => {
+const CountDown = ({ timerSec = 150, isActive }) => {
 
     const rem = .05*Math.min(.62*window.innerHeight, window.innerWidth);
     const fontSize = .75 * rem;
@@ -23,8 +23,9 @@ const CountDown = ({ timerSec = 120, isActive }) => {
 	useEffect( () => {
         if (isActive) setTimerID(setInterval(() => tick(), 1000));
         else clearInterval(timerID);
+        return () => clearInterval(timerID);
 	}, [isActive]);
-
+   
 	return (
     	<div className = { (isActive) ? [cls.clock, cls.active].join(' ') : cls.clock }
             // onDoubleClick={ () => { setTime(timerSec); setIsOn(false) } }

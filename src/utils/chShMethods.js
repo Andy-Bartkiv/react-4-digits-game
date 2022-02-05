@@ -191,6 +191,7 @@ function updPositionByPresentLastPos(position, digPresent) {
             const pos = gridDig[lp] * 1;
             [0,1,2,3].forEach(row => newPos[row][lp] = (row === pos) ? 'O' : '-')
             TEN_DIG.forEach(td => newPos[pos][td] = (td === lp) ? 'O' : '-');
+            newPos[pos][10] = lp;
         })
     }
     return newPos;

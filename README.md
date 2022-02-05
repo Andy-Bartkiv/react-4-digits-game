@@ -1,7 +1,7 @@
-To practice three interesting aspects of Software Engineering: 
+... to practice three interesting aspects of Software Engineering: 
 1. Develop highly interactive game interface in React, flavoured with nice animations.
 2. Explore some back-end tech, like Node.js, Express and WebSocket, to provide online two-player game mode.
-3. Create good AI code-breaking algorithm (which turned out to be tought challenge).
+3. Create code-breaking heuristic algorithm for AI (which turned out to be tought challenge).
 
 44: Code Breaking Game 
 is a variation of Bulls and Cows code-breaking paper and pencil game for two or more players, predating the commercially marketed board game Mastermind.

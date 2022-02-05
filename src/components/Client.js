@@ -1,10 +1,10 @@
-import Loader from './UI/loader/Loader';
+// import Loader from './UI/loader/Loader';
 import Header from './Header';
 import Navbar from './Navbar';
 import Input4D from './Input4D';
 import Input from './Input';
 import OutputList from './OutputList';
-import DevCheatSheet from './DevCheatSheet';
+// import DevCheatSheet from './DevCheatSheet';
 import ChatTab from './ChatTab';
 import CheatSheet from './CheatSheet';
 import CongratText from './CongratText';
@@ -41,7 +41,7 @@ function Client({ openMM, mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, 
           msgArr={ msgArr }
         />
 
-        <DevCheatSheet guess={ myGuess } res={ myRes } />
+        {/* <DevCheatSheet guess={ myGuess } res={ myRes } /> */}
 
         <div className='Client-output'>
 
@@ -56,9 +56,9 @@ function Client({ openMM, mySecret, myGuess, setMyGuess, myRes, opGuess, opRes, 
             </div>
         </div>
 
-        {/* <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/> */}
+        <Input4D input={ myGuess } setInput={ setMyGuess } isMyTurn={ isMyTurn } win={ myWin }/>
 
-        <Input input={ myGuess } setInput={ setMyGuess }/>
+        {/* <Input input={ myGuess } setInput={ setMyGuess }/> */}
 
         <CongratText win={ myWin }/>
 
