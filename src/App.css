@@ -85,9 +85,6 @@ body {
       inset .1em .1em .1em #14161a,
       inset -.1em -.1em .1em #3c424e;
 }
-  .header-clock {
-    font-size: 1rem;
-  }
 
   .header-logo {
     font-family: 'Pacifico', cursive;
@@ -412,7 +409,25 @@ body {
   gap: .25em;
 }
 .secret-select-text.bottom-hint {
-  top:auto; bottom:0; font-size: .85em;
+  top:auto; bottom:0; 
+  height: auto;
+  max-height: 37.5vh;
+  margin: .5em;
+  width: calc(100% - 1em);
+  padding: .5em .25em;
+  border-radius: .35em;
+  box-shadow: 
+      inset .1em .1em .1em #14161a,
+      inset -.1em -.1em .1em #3c424e;
+  background-color: #24282f;
+  background-color: #0882;
+  background-image: linear-gradient(-45deg, #0881, #0881 50%, var(--bg1-color) 50%, var(--bg1-color));
+  background-size: .2rem .2rem;
+}
+.secret-select-text.bottom-hint p {
+  color: var(--sec-color);
+  font-size: min(2.15vh, 4vw);
+  text-align: center;
 }
 /* ///////////// CLIENT CHAT WINDOW */
 /* .client-chat { } */

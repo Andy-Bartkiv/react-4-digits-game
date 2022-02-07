@@ -8,7 +8,7 @@ const SecretSelectText = () => {
         <div className='secret-select-text'>
           {text.split(' ').map((word, iW) => 
             <div key={iW} className='secret-select-word'>
-              { word.split('').map((e, i) => <Plate key={i} char={ e }/> )}
+              { word.split('').map((e, i) => <Plate key={iW*100+i} char={ e }/> )}
             </div> 
             )
           }

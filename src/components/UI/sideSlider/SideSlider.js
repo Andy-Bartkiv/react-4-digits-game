@@ -1,6 +1,6 @@
-import cls from './MyModal.module.css'
+import cls from './SideSlider.module.css'
 
-const MyModal = ({ children, visible }) => {
+const SideSlider = ({ children, visible }) => {
 	const rootClasses = (!visible)
 		? [cls.my_modal]
 		: [cls.my_modal, cls.active]
@@ -23,4 +23,4 @@ const MyModal = ({ children, visible }) => {
 	)
 }
 
-export default MyModal;
+export default SideSlider;

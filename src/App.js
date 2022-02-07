@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import { uniqRndStr } from "./utils/rndMethods";
 import calcDigitMatch from './utils/calcDigitMatch';
 import Client from './components/Client';
-import MyModal from './components/UI/modal/MyModal';
 import ContainerAI from './components/ContainerAI';
-import Input4D from './components/Input4D';
-import SecretSelectText from './components/SecretSelectText';
+// import Input4D from './components/Input4D';
+// import SecretSelectText from './components/SecretSelectText';
+// import SecretSelectRules from './components/SecretSelectRules';
+import SecretSelect from './components/SecretSelect';
 import MainMenu from './components/MainMenu';
 
 function App() {
 
   const [showMainMenu, setShowMainMenu] = useState(false);
-  const [modal, setModal] = useState(true);
+  const [showSecretSelect, setShowSecretSelect] = useState(true);
+  const [keyClient, setKeyClient] = useState(Date.now());
+
   
   const timerLimit = 300;  // Fix bug at 5 sec
   const [timers, setTimers] = useState({ my: timerLimit, opp: timerLimit });
@@ -33,10 +36,9 @@ function App() {
 
   useEffect( () => {
     if (mySecret) {
-      // setIsMyTurn(false);
-      // RAndom starting player: false = OP, true = ME
+      // Random starting player: false = OPP, true = ME
       setIsMyTurn([false, true][Math.floor(Math.random() * 2)]);
-      setModal(false);
+      setShowSecretSelect(false);
       setTimers({ my: timerLimit, opp: timerLimit });
     }
   }, [mySecret]);
@@ -88,11 +90,12 @@ function App() {
       setOpGuess([]); setOpRes([]);
       setIsMyTurn(null);
       setMySecret(null);
-      setModal(true);
+      setShowSecretSelect(true);
       setMsgArr([]);
       setTimeout( () => {
         setMyWin(null)
         setTimers({ my: timerLimit, opp: timerLimit });
+        setKeyClient(Date.now());
       }, 500);
     }
   }
@@ -100,57 +103,51 @@ function App() {
 ////////////////////////////// RENDER /////////////////////////////
   return (
     <>
-    {(showMainMenu)
+    {
+    (showMainMenu)
       ? <MainMenu closeMM={ () => setShowMainMenu(false) }/>
       : 
-      <>
-        <MyModal visible = { modal }>
-          <SecretSelectText/>
-          <Input4D 
+        <>
+          <SecretSelect
+            visible={ showSecretSelect }
             input={ uniqRndStr('0123456789') } 
             setInput={ (val) => setMySecret(val.slice(-1)[0]) } 
-            uniqDigitsMandatory={ true }
-            isMyTurn={ modal }
           />
-        </MyModal>
 
-        {/* {(isMyTurn!==null) &&  */}
-        <Client
-          openMM={ () => setShowMainMenu(true) }
-          mySecret= { mySecret }
-          myGuess={ myGuess }
-          setMyGuess={ setMyGuess }
-          myRes={ myRes }
-          opGuess={ opGuess }
-          opRes={ opRes }
-          isMyTurn={ isMyTurn }
-          restartGame={ restartGame }
-          myWin={ myWin }
-          // setMyWin= { setMyWin }
-          timers={ timers }
-          setTimers={ setTimers }
-          msgArr={ msgArr }
-          setMsgArr={ setMsgArr }
-        />
-        {/* } */}
-      
-        {(isMyTurn!==null) && 
-        <ContainerAI
-          isMyTurn= { isMyTurn }
-          myGuess={ myGuess }
-          myRes={ myRes }
-          setMyRes={ setMyRes }
-          opGuess={ opGuess }
-          setOpGuess={ setOpGuess }
-          opRes={ opRes }
-          // myWin= { myWin }
-          // setMyWin= { setMyWin }
-          // setIsMyTurn= { setIsMyTurn }
-          msgArr={ msgArr }
-          setMsgArr={ setMsgArr }
-        />
-        }
-      </> 
+          <Client
+            key={ keyClient }
+            openMM={ () => setShowMainMenu(true) }
+            mySecret= { mySecret }
+            myGuess={ myGuess }
+            setMyGuess={ setMyGuess }
+            myRes={ myRes }
+            opGuess={ opGuess }
+            opRes={ opRes }
+            isMyTurn={ isMyTurn }
+            restartGame={ restartGame }
+            myWin={ myWin }
+            // setMyWin= { setMyWin }
+            timers={ timers }
+            setTimers={ setTimers }
+            msgArr={ msgArr }
+            setMsgArr={ setMsgArr }
+          />
+        
+          { (isMyTurn!==null) && 
+            <ContainerAI
+              // key={ keyClient + 1 }
+              isMyTurn= { isMyTurn }
+              myGuess={ myGuess }
+              myRes={ myRes }
+              setMyRes={ setMyRes }
+              opGuess={ opGuess }
+              setOpGuess={ setOpGuess }
+              opRes={ opRes }
+              msgArr={ msgArr }
+              setMsgArr={ setMsgArr }
+            />
+          }
+        </> 
     }
    </>
   );
