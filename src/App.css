@@ -1,5 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Roboto&family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Molle:ital@1&family=Roboto&family=Roboto+Mono&display=swap');
 * {
 	margin: 0;  padding: 0;
   box-sizing: border-box;
@@ -89,9 +91,12 @@ body {
 
   .header-logo {
     font-family: 'Pacifico', cursive;
+    font-family: 'Hachi Maru Pop', cursive;
+    font-family: 'Molle', cursive;
     font-size: .75em;
-    font-style: italic;
-    transform: scale(3, 2.5) translateY(-7.5%);
+    /* font-style: italic; */
+    /* transform: scale(3, 2.5) translateY(-7.5%); */
+    transform: scale(2.5) translateY(2.5%);
     color: #ffa500bb;
   }
 
@@ -109,6 +114,7 @@ body {
   padding-bottom: 0;
 }
   .Client-navbar li {
+    -webkit-tap-highlight-color: transparent; /* for removing the highlight */
     position: relative;
     cursor: pointer;
     border-radius: .25em;
@@ -259,6 +265,7 @@ body {
 }
 
 .input-button {
+  -webkit-tap-highlight-color: transparent; /* for removing the highlight */
   cursor: pointer;
   width: calc(100% - 1.6rem);
   padding: .125em; 
@@ -424,6 +431,7 @@ body {
 }
 
 .chat-btn {
+  -webkit-tap-highlight-color: transparent; /* for removing the highlight */
   width: 2em;
   cursor: pointer;
   border-radius: .25em;
