@@ -16,10 +16,10 @@ Each player picks a 4-digit secret number. The digits must be all different.
 
 Then, in turn, the players try to guess their opponent's number who in return provides the number of matches in 2-digit format.
 
-The first digit provides information about how many digits from player guess match opponent secret number.
+The first digit contains information about how many digits from the player's guess match the opponent's secret number.
 
-The second digit - how many digits from player guess match their right positions in secret number.
+The second digit shows how many digits from the player's guess match their correct positions in the secret number.
 
-The first player to reveal the other's secret number (get 44 in response to his guess) wins the game.
+The first player to reveal the other's secret number (got 44 in response to his guess) wins the game.
 
 It is proved that any number can be solved within seven turns.

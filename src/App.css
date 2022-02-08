@@ -429,8 +429,32 @@ body {
   font-size: min(2.15vh, 4vw);
   text-align: center;
 }
+
+.secret-select-text.bottom-hint p.first { 
+  width: 80%;
+  margin: 0 auto;
+}
+.secret-select-text.bottom-hint .info-btn {
+  cursor: pointer;
+  font-style: italic;
+  font-family: 'Roboto Mono';
+  transition: 0.25s;
+}
+.secret-select-text.bottom-hint .info-btn:hover {
+  color: #ffa500bb;
+}
+.secret-select-text.bottom-hint .control-btn {
+  position: absolute;
+  top:.25em;
+  cursor: pointer;
+  font-size: .9em;
+  font-family: 'Roboto Mono';
+  transition: 0.25s;
+}
+.secret-select-text.bottom-hint .control-btn:hover {
+  color: #ffa500bb;
+}
 /* ///////////// CLIENT CHAT WINDOW */
-/* .client-chat { } */
 .chat-input-form {
   display: flex;
   margin-bottom: .125em;

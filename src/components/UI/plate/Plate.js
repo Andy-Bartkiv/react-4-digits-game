@@ -1,8 +1,6 @@
 import cls from './Plate.module.css';
 
-import React from 'react'
-
-const Plate = ({ char, bg='norm' }) => {
+const Plate = ({ char, bg='norm', width='norm' }) => {
 
     const addCls = (bg==='teal')
         ? cls.bg_teal
@@ -10,8 +8,12 @@ const Plate = ({ char, bg='norm' }) => {
             ? cls.bg_orange
             : cls.bg_normal
 
+    const widthStyle = (width==='norm')
+        ? {}
+        : { width: width }
+
     return (
-        <span className={ [cls.plate, addCls].join(' ')}>
+        <span className={ [cls.plate, addCls].join(' ')} style={ widthStyle }>
                 { char }
         </span>
     )

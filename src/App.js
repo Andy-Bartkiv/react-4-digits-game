@@ -17,7 +17,7 @@ function App() {
   const [keyClient, setKeyClient] = useState(Date.now());
 
   
-  const timerLimit = 300;  // Fix bug at 5 sec
+  const timerLimit = 10;  // Fix bug at 5 sec
   const [timers, setTimers] = useState({ my: timerLimit, opp: timerLimit });
   const [myGuess, setMyGuess] = useState([]);
   const [myRes, setMyRes] = useState([]);
