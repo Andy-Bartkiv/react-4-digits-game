@@ -134,8 +134,8 @@ function App() {
           />
         
           { (isMyTurn!==null) && 
-            <ContainerSeniorAI
-            // <ContainerAI
+            // <ContainerSeniorAI
+            <ContainerAI
               // key={ keyClient + 1 }
               isMyTurn= { isMyTurn }
               myGuess={ myGuess }
