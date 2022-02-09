@@ -23,6 +23,7 @@ const SecretSelectRules = () => {
     textRU.push("Первый игрок, который угадает секретный код другого (получит 44 в ответ на догадку), побеждает.");
 
     const text = (rus) ? textRU : textEN;
+    const styleP = (rus) ? 'rus' : '';
 
     return (
         <div className='secret-select-text bottom-hint'>
@@ -41,9 +42,11 @@ const SecretSelectRules = () => {
                         onClick={ () => setShowRules(false) }>
                         <Plate width='1.5em' char='X'/>
                     </div>
-                    { text.map((p,i) => 
-                        <p key={i} className={ (i===0) ? 'first' : '' }>
-                            { p }
+                    { text.map((txt,i) => 
+                        <p key={i} 
+                            className={ [styleP, (i===0)?'first':''].join(' ') }
+                        >
+                            { txt }
                         </p>
                     )}
                 </div>

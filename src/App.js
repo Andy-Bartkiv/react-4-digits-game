@@ -4,6 +4,7 @@ import { uniqRndStr } from "./utils/rndMethods";
 import calcDigitMatch from './utils/calcDigitMatch';
 import Client from './components/Client';
 import ContainerAI from './components/ContainerAI';
+import ContainerSeniorAI from './components/ContainerSeniorAI';
 // import Input4D from './components/Input4D';
 // import SecretSelectText from './components/SecretSelectText';
 // import SecretSelectRules from './components/SecretSelectRules';
@@ -17,7 +18,7 @@ function App() {
   const [keyClient, setKeyClient] = useState(Date.now());
 
   
-  const timerLimit = 10;  // Fix bug at 5 sec
+  const timerLimit = 300;  // Fix bug at 5 sec
   const [timers, setTimers] = useState({ my: timerLimit, opp: timerLimit });
   const [myGuess, setMyGuess] = useState([]);
   const [myRes, setMyRes] = useState([]);
@@ -126,7 +127,6 @@ function App() {
             isMyTurn={ isMyTurn }
             restartGame={ restartGame }
             myWin={ myWin }
-            // setMyWin= { setMyWin }
             timers={ timers }
             setTimers={ setTimers }
             msgArr={ msgArr }
@@ -134,7 +134,8 @@ function App() {
           />
         
           { (isMyTurn!==null) && 
-            <ContainerAI
+            <ContainerSeniorAI
+            // <ContainerAI
               // key={ keyClient + 1 }
               isMyTurn= { isMyTurn }
               myGuess={ myGuess }

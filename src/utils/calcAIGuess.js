@@ -16,7 +16,7 @@ function calcUniqCombinations(arr) {
 const rndElement = (arr) => arr[Math.floor(Math.random()*arr.length)];
 
 ///////////////////////// FUNCTION itself ///////////////////////////
-function calcAIGuess(position, digPresent, guess, minLength = 10) {
+function calcAIGuess(position, guess, minLength = 10) {
     const TEN_DIG = '0123456789'.split('').map(ch => Number(ch));
     // digits available for each position
     const gridPos = position.map(row => TEN_DIG
@@ -33,4 +33,4 @@ function calcAIGuess(position, digPresent, guess, minLength = 10) {
     return [rndNumber, arrValidGuesses.length];
 }
 
-export { calcAIGuess }
+export default calcAIGuess;

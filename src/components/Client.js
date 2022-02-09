@@ -25,15 +25,15 @@ function Client({
   setTimers
 }) {
 
-  const opNumber = (myWin) ? myGuess[myRes.length-1] : '????';
+  const oppNumber = (myWin) ? myGuess[myRes.length-1] : '????';
 
   const [showChSh, setShowChSh] = useState(false);
-  const [appChat, setAppChat] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     if (isMyTurn === null) {
       setTimeout(() => {
-        setAppChat(false);
+        setShowChat(false);
         setShowChSh(false);
       }, 500)
     } 
@@ -52,8 +52,8 @@ function Client({
 
         <Navbar
           msgArr={ msgArr }
-          chat={ appChat }
-          toggleChat={ ()=>setAppChat(!appChat) } 
+          chat={ showChat }
+          toggleChat={ ()=>setShowChat(!showChat) } 
           restartGame={ restartGame } 
           cheatSheet= { showChSh }
           toggleCheatSheet={ ()=>setShowChSh(!showChSh) }
@@ -61,14 +61,14 @@ function Client({
 
         <div className='Client-output'>
 
-            <div className={(appChat) ? "output-flip is-flipped-l" : "output-flip" }>
+            <div className={ (showChat) ? "output-flip is-flipped-l" : "output-flip" }>
               <ChatTab msgArr={ msgArr } setMsgArr={ setMsgArr }/>
               <OutputList guess={ myGuess } res={ myRes } num={ mySecret }/> 
             </div>
 
             <div className={(showChSh) ? "output-flip is-flipped-r" : "output-flip" }>
               <CheatSheet guess={ myGuess } res={ myRes }/>
-              <OutputList guess={ opGuess } res={ opRes } num={ opNumber } opponent={ true }/>
+              <OutputList guess={ opGuess } res={ opRes } num={ oppNumber } opponent={ true }/>
             </div>
         </div>
 

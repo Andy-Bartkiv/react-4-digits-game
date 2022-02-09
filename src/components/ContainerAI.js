@@ -1,42 +1,32 @@
 import { useState, useEffect } from "react";
 import { rndStr, uniqRndStr } from "../utils/rndMethods";
 import calcDigitMatch from "../utils/calcDigitMatch";
-import { calcAIGuess } from "../utils/calcAIGuess";
-import { 
-    updPostionAfterGuess, 
-    updAbsentPresentByNewPosition, 
-    updAbsentAndPositionByPreviousGuesses,
-    updPresentByPreviousGuesses,
-    updPositionByOnlyPresent,
-    updPositionByPresentLastPos,
-    updPositionByPrevGuessesAndAP,
-    updPresentByPrevGuessesAndAP
-} from "../utils/chShMethods"
+import calcAIGuess from "../utils/calcAIGuess";
+import calcAIChSh from "../utils/calcAIChSh";
+import calcKnuthGuess from "../utils/calcKnuthGuess";
+
+const poolOfTextMsgs = {
+    1: ['Greetings, master!', 'Hello, friend!', 'Hi there!'],
+    3: ['How are you today?', 'How are things?', "What's up?"],
+    6: ['Good algorithm can brake any code in seven turns.', 
+        "It is proved that any number can be solved within seven turns."]
+}
 
 function textMsgChatAI(turn) {
     const rndMsg = (arr) => arr[Math.floor(Math.random() * arr.length)];
-    const poolOfTextMsgs = {
-        1: ['Greetings, master!', 'Hello, friend!', 'Hi there!'],
-        3: ['How are you today?', 'How are things?', "What's up?"],
-        6: ['Good algorithm can brake any code in seven turns.', 
-            "It is proved that any number can be solved within seven turns."]
-    }
     return {
         id: Date.now(),
         author: 'AI',
         text: rndMsg(poolOfTextMsgs[turn])
     }
-}
+};
 
 const createArray11x4 = () => {
     const initPos = Array(4).fill(null).map(() => [...Array(11).fill(' ')]);
     initPos.forEach((row, i) => row[row.length-1] = 'ABCD'[i]);
     return initPos;
-}
+};
 
-const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, opRes, myWin, msgArr, setMsgArr }) => {
-    
-    
     // function calcNewGuessOLD(position, digPresent, guess) {
     //     let newGuess = null;
     //     if (guess.length === 0)
@@ -54,50 +44,37 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
     //     return newGuess;
     // }
 
-    const calcNewGuess = (position, digPresent, guess) => {
-        const [rndNumber, l1] = calcAIGuess(position, digPresent, guess);
-        console.log('OPP', rndNumber, l1);
-        return (rndNumber) ? rndNumber : rndStr('0123456789');
-    }
+const calcNewGuess = (position, guess) => {
+    const [rndNumber, l1] = calcAIGuess(position, guess);
+    console.log('OPP', rndNumber, l1);
+    return (rndNumber) ? rndNumber : rndStr('0123456789');
+}
+
+const ContainerAI = ({ 
+    isMyTurn, 
+    myGuess, 
+    myRes, 
+    setMyRes, 
+    opGuess, 
+    setOpGuess, 
+    opRes, 
+    msgArr, 
+    setMsgArr }) => {
 
     const [position, setPosition] = useState(createArray11x4());
     const [digPresent, setDigPresent] = useState([]);
     const [digAbsent, setDigAbsent] = useState([]);
     useEffect(() => {
         if (opGuess.length && isMyTurn !== null) {
-            let newDigAbsent = [...digAbsent];
-            let newDigPresent = [...digPresent];
-            let newPos = [...position].map(row => [...row]);
-            const guess = opGuess;
-            const res = opRes;
-// +++ POSITION
-            newPos = updPostionAfterGuess(position, guess, res);
-// --- ANALYSE Previous Guesses to update Position, PRESENT and ABSENT
-            const updAAPBPG = 
-                updAbsentAndPositionByPreviousGuesses(newPos,newDigAbsent, guess, res);
-            [newDigAbsent, newPos] = [...updAAPBPG];
-            const updPBPG = 
-                updPresentByPreviousGuesses(newDigPresent, guess, res);
-            newDigPresent = [...updPBPG]
-// +++ ANALYSE POSITIONS GRID to update ABSENT and PRESENT
-            const updAPBNP = 
-                updAbsentPresentByNewPosition(newPos, newDigPresent, newDigAbsent, guess, res);
-            [newDigAbsent, newDigPresent] = [...updAPBNP];
-// +++ UPDATE POSITIONS GRID based on Only PRESENT array
-            newPos = updPositionByOnlyPresent(newPos, newDigPresent);
-// --- update newPos and PRESENT by revising Prev Guesses considering PRESENT and ABSENT
-            newPos = updPositionByPrevGuessesAndAP(newPos, newDigPresent, guess, res);
-            newDigPresent = [...updPresentByPrevGuessesAndAP(newDigPresent, newDigAbsent, guess, res)]
-// +++ recalculate newPos if any digPresent has only 1 legal position
-            newPos = updPositionByPresentLastPos(newPos, newDigPresent);
-
-            setDigPresent(newDigPresent);
-            setDigAbsent(newDigAbsent);
+            const [ newPos, newDigAbsent, newDigPresent ] = 
+                calcAIChSh(position, digAbsent, digPresent, opGuess, opRes);
             setPosition(newPos);
+            setDigAbsent(newDigAbsent);
+            setDigPresent(newDigPresent);
         } else {
-            setDigPresent([]);
-            setDigAbsent([]);
             setPosition(createArray11x4());
+            setDigAbsent([]);
+            setDigPresent([]);
         }
     }, [opRes])
 
@@ -126,9 +103,9 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
         if (isMyTurn === false 
             && myRes.slice(-1)[0] !== '44' 
             && myRes.length < 12) {
-                // console.log('Calculating OP Guess')
+                // console.log('Calculating OP Guess')           
             const t = setTimeout(() => {
-                const newGuess = calcNewGuess(position, digPresent, opGuess);
+                const newGuess = calcNewGuess(position, opGuess);
                 setOpGuess([...opGuess, newGuess]);
             }, delayRnd); // 2500 ? delayRnd ? 
         }
@@ -140,7 +117,7 @@ const ContainerAI = ({ isMyTurn, myGuess, myRes, setMyRes, opGuess, setOpGuess, 
         const delayRnd = Math.floor(Math.random() * 1250) + 1000;
         if (opGuess.length && isMyTurn !== null) {
             const t = setTimeout(() => {
-                if ([1,3,6].includes(opGuess.length))
+                if (Object.keys(poolOfTextMsgs).includes(opGuess.length))
                     setMsgArr([...msgArr, textMsgChatAI(opGuess.length)]);
             }, delayRnd);
         }

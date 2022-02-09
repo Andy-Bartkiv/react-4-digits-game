@@ -429,6 +429,9 @@ body {
   font-size: min(2.15vh, 4vw);
   text-align: center;
 }
+.secret-select-text.bottom-hint p.rus {
+  font-size: min(2.15vh, 3.75vw);
+}
 
 .secret-select-text.bottom-hint p.first { 
   width: 80%;
