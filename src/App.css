@@ -87,8 +87,9 @@ body {
 }
 
   .header-logo {
-    font-family: 'Pacifico', cursive;
-    font-family: 'Hachi Maru Pop', cursive;
+    /* font-family: 'Pacifico', cursive;
+    font-family: 'Hachi Maru Pop', cursive; */
+    cursor: pointer;
     font-family: 'Molle', cursive;
     font-size: .75em;
     /* font-style: italic; */

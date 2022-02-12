@@ -2,34 +2,12 @@ import { useState, useEffect } from "react";
 import { rndStr, uniqRndStr } from "../utils/rndMethods";
 import calcDigitMatch from "../utils/calcDigitMatch";
 import calcKnuthGuess from "../utils/calcKnuthGuess";
-
-// const worker = new Worker('../../public/thread.worker');
+import calcBruteGuess from "../utils/calcBruteGuess";
 
 const ContainerSeniorAI = ({ 
-    isMyTurn, 
-    myGuess, 
-    myRes, 
-    setMyRes, 
-    opGuess, 
-    setOpGuess, 
-    opRes, 
-    msgArr, 
-    setMsgArr }) => {
-
-// init Worker on mount
-    // useEffect( () => {
-    //     const listener = ({ data: { type, payload } }) => {
-    //     console.log(type, payload);
-    //     if (type === 'UPDATE_SUCCESS') 
-    //         setLength(payload);
-    //     };
-    //     worker.addEventListener('message', listener);
-    //     return () => worker.removeEventListener('message', listener);
-    // }, []);
-
-    // useEffect( () => {
-    //     worker.postMessage({ type: 'UPDATE', payload: myGuess });
-    // }, [myGuess]);
+    isMyTurn, myGuess, myRes, opGuess, opRes, msgArr, 
+    setMyRes, setOpGuess, setMsgArr 
+}) => {
 
 // SET AI SECRET NUMBER    
     const [opSecret, setOpSecret] = useState(null);
@@ -59,7 +37,7 @@ const ContainerSeniorAI = ({
         if (isMyTurn === false 
             && myRes.slice(-1)[0] !== '44' 
             && myRes.length < 12) {
-                const newGuess = calcKnuthGuess(opGuess, opRes);
+                const newGuess = calcKnuthGuess(opGuess, opRes);     
                 if (myGuess.length) 
                     setOpGuess([...opGuess, newGuess]);
                 else
@@ -69,6 +47,7 @@ const ContainerSeniorAI = ({
         }
     }, [myRes]); 
     
+
     return null;
 }
 

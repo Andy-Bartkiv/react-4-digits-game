@@ -24,10 +24,8 @@ const randomOrLogic = (lvl, turn) => {
     const turnLimit = (turn - 7) / (lvlValue[lvl] - 7); 
     return Math.random() >= turnLimit;
 }
-const lvlAI = 'middle';
-// const lvlAI = 'junior';
 
-const ContainerAI = ({ 
+const ContainerAI = ({
     isMyTurn, 
     myGuess, 
     myRes, 
@@ -36,7 +34,8 @@ const ContainerAI = ({
     setOpGuess, 
     opRes, 
     msgArr, 
-    setMsgArr }) => {
+    setMsgArr,
+    difLvl='middle' }) => {
 
 // SET AI SECRET NUMBER    
     const [opSecret, setOpSecret] = useState(null);
@@ -60,7 +59,7 @@ const ContainerAI = ({
             && myRes.slice(-1)[0] !== '44' 
             && myRes.length < 12) {
                 setTimeout(() => {
-                    const newGuess = (randomOrLogic(lvlAI, opGuess.length+1))
+                    const newGuess = (randomOrLogic(difLvl, opGuess.length+1))
                         ? rndStr('0123456789')
                         : calcBruteGuess(opGuess, opRes);
                     setOpGuess([...opGuess, newGuess]);
@@ -73,7 +72,7 @@ const ContainerAI = ({
         const delayRnd = Math.floor(Math.random() * 1250) + 1000;
         if (opGuess.length && isMyTurn !== null)
             setTimeout(() => {
-                if (Object.keys(poolOfTextMsgs).includes(opGuess.length))
+                if (Object.keys(poolOfTextMsgs).includes(String(opGuess.length)))
                     setMsgArr([...msgArr, textMsgChatAI(opGuess.length)]);
             }, delayRnd);
     }, [opGuess]);

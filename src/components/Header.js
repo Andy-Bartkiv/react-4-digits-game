@@ -22,8 +22,10 @@ const Header = ({ openMM, isMyTurn, timers, setTimers }) => {
                 isActive={ activeTimer.my } 
             />
 
-                        {/* onClick={ () => openMM() } */}
-            <div className="header-logo"> 
+                        
+            <div className="header-logo"
+                onClick={ () => { setTimers({opp:0, my: 0}); openMM(); }}
+            > 
                 <span>44</span>
             </div>
 

@@ -28,8 +28,8 @@ const minimax = (resArr) => {
 }
 
 function calcKnuthGuess(guess, res) {
-    let resArr = createArrayNoRepeats(10**4);
     if (guess.length) {
+        let resArr = createArrayNoRepeats(10**4);
         guess.forEach((g, i) => {
             resArr = findArrOfLegalGuesses(resArr, g, res[i])
             console.log(g, res[i]);
